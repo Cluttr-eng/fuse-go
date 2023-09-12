@@ -29,6 +29,7 @@ const (
 	AGGREGATOR_MONO Aggregator = "mono"
 	AGGREGATOR_MX Aggregator = "mx"
 	AGGREGATOR_PLAID Aggregator = "plaid"
+	AGGREGATOR_SALTEDGE Aggregator = "saltedge"
 	AGGREGATOR_SNAPTRADE Aggregator = "snaptrade"
 	AGGREGATOR_TELLER Aggregator = "teller"
 	AGGREGATOR_TRUELAYER Aggregator = "truelayer"
@@ -45,6 +46,7 @@ var AllowedAggregatorEnumValues = []Aggregator{
 	"mono",
 	"mx",
 	"plaid",
+	"saltedge",
 	"snaptrade",
 	"teller",
 	"truelayer",

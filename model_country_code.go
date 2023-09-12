@@ -27,11 +27,13 @@ const (
 	COUNTRYCODE_AU CountryCode = "AU"
 	COUNTRYCODE_BD CountryCode = "BD"
 	COUNTRYCODE_BE CountryCode = "BE"
+	COUNTRYCODE_BG CountryCode = "BG"
 	COUNTRYCODE_BH CountryCode = "BH"
 	COUNTRYCODE_BM CountryCode = "BM"
 	COUNTRYCODE_BN CountryCode = "BN"
 	COUNTRYCODE_BR CountryCode = "BR"
 	COUNTRYCODE_BW CountryCode = "BW"
+	COUNTRYCODE_BY CountryCode = "BY"
 	COUNTRYCODE_CA CountryCode = "CA"
 	COUNTRYCODE_CH CountryCode = "CH"
 	COUNTRYCODE_CI CountryCode = "CI"
@@ -41,7 +43,9 @@ const (
 	COUNTRYCODE_CO CountryCode = "CO"
 	COUNTRYCODE_CZ CountryCode = "CZ"
 	COUNTRYCODE_DE CountryCode = "DE"
+	COUNTRYCODE_DO CountryCode = "DO"
 	COUNTRYCODE_DZ CountryCode = "DZ"
+	COUNTRYCODE_EC CountryCode = "EC"
 	COUNTRYCODE_EG CountryCode = "EG"
 	COUNTRYCODE_ES CountryCode = "ES"
 	COUNTRYCODE_FI CountryCode = "FI"
@@ -53,6 +57,7 @@ const (
 	COUNTRYCODE_GM CountryCode = "GM"
 	COUNTRYCODE_GR CountryCode = "GR"
 	COUNTRYCODE_HK CountryCode = "HK"
+	COUNTRYCODE_HU CountryCode = "HU"
 	COUNTRYCODE_ID CountryCode = "ID"
 	COUNTRYCODE_IE CountryCode = "IE"
 	COUNTRYCODE_IL CountryCode = "IL"
@@ -72,6 +77,8 @@ const (
 	COUNTRYCODE_LT CountryCode = "LT"
 	COUNTRYCODE_LU CountryCode = "LU"
 	COUNTRYCODE_MC CountryCode = "MC"
+	COUNTRYCODE_MD CountryCode = "MD"
+	COUNTRYCODE_MK CountryCode = "MK"
 	COUNTRYCODE_MO CountryCode = "MO"
 	COUNTRYCODE_MT CountryCode = "MT"
 	COUNTRYCODE_MU CountryCode = "MU"
@@ -89,15 +96,18 @@ const (
 	COUNTRYCODE_PL CountryCode = "PL"
 	COUNTRYCODE_PT CountryCode = "PT"
 	COUNTRYCODE_QA CountryCode = "QA"
+	COUNTRYCODE_RO CountryCode = "RO"
 	COUNTRYCODE_RU CountryCode = "RU"
 	COUNTRYCODE_SA CountryCode = "SA"
 	COUNTRYCODE_SE CountryCode = "SE"
 	COUNTRYCODE_SG CountryCode = "SG"
+	COUNTRYCODE_SK CountryCode = "SK"
 	COUNTRYCODE_SL CountryCode = "SL"
 	COUNTRYCODE_TH CountryCode = "TH"
 	COUNTRYCODE_TR CountryCode = "TR"
 	COUNTRYCODE_TW CountryCode = "TW"
 	COUNTRYCODE_TZ CountryCode = "TZ"
+	COUNTRYCODE_UA CountryCode = "UA"
 	COUNTRYCODE_UG CountryCode = "UG"
 	COUNTRYCODE_US CountryCode = "US"
 	COUNTRYCODE_UY CountryCode = "UY"
@@ -116,11 +126,13 @@ var AllowedCountryCodeEnumValues = []CountryCode{
 	"AU",
 	"BD",
 	"BE",
+	"BG",
 	"BH",
 	"BM",
 	"BN",
 	"BR",
 	"BW",
+	"BY",
 	"CA",
 	"CH",
 	"CI",
@@ -130,7 +142,9 @@ var AllowedCountryCodeEnumValues = []CountryCode{
 	"CO",
 	"CZ",
 	"DE",
+	"DO",
 	"DZ",
+	"EC",
 	"EG",
 	"ES",
 	"FI",
@@ -142,6 +156,7 @@ var AllowedCountryCodeEnumValues = []CountryCode{
 	"GM",
 	"GR",
 	"HK",
+	"HU",
 	"ID",
 	"IE",
 	"IL",
@@ -161,6 +176,8 @@ var AllowedCountryCodeEnumValues = []CountryCode{
 	"LT",
 	"LU",
 	"MC",
+	"MD",
+	"MK",
 	"MO",
 	"MT",
 	"MU",
@@ -178,15 +195,18 @@ var AllowedCountryCodeEnumValues = []CountryCode{
 	"PL",
 	"PT",
 	"QA",
+	"RO",
 	"RU",
 	"SA",
 	"SE",
 	"SG",
+	"SK",
 	"SL",
 	"TH",
 	"TR",
 	"TW",
 	"TZ",
+	"UA",
 	"UG",
 	"US",
 	"UY",

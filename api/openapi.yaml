@@ -1178,6 +1178,8 @@ components:
       - missing_fuse_verification_header
       - missing_akoya_client_id_header
       - missing_akoya_client_secret_header
+      - missing_saltedge_app_id_header
+      - missing_saltedge_app_secret_header
       - aggregator_error
       - aggregator_disconnected_error
       - aggregator_connection_finished_error
@@ -1281,11 +1283,13 @@ components:
       - AU
       - BD
       - BE
+      - BG
       - BH
       - BM
       - BN
       - BR
       - BW
+      - BY
       - CA
       - CH
       - CI
@@ -1295,7 +1299,9 @@ components:
       - CO
       - CZ
       - DE
+      - DO
       - DZ
+      - EC
       - EG
       - ES
       - FI
@@ -1307,6 +1313,7 @@ components:
       - GM
       - GR
       - HK
+      - HU
       - ID
       - IE
       - IL
@@ -1326,6 +1333,8 @@ components:
       - LT
       - LU
       - MC
+      - MD
+      - MK
       - MO
       - MT
       - MU
@@ -1343,15 +1352,18 @@ components:
       - PL
       - PT
       - QA
+      - RO
       - RU
       - SA
       - SE
       - SG
+      - SK
       - SL
       - TH
       - TR
       - TW
       - TZ
+      - UA
       - UG
       - US
       - UY
@@ -1371,6 +1383,7 @@ components:
       - mono
       - mx
       - plaid
+      - saltedge
       - snaptrade
       - teller
       - truelayer
@@ -1683,6 +1696,8 @@ components:
           connection_id: connection_id
         mono:
           account_id: account_id
+        saltedge:
+          connection_id: connection_id
         belvo:
           institution: institution
           link_id: link_id
@@ -1739,6 +1754,8 @@ components:
           $ref: '#/components/schemas/FinancialConnectionDetails_finicity'
         akoya:
           $ref: '#/components/schemas/FinancialConnectionDetails_akoya'
+        saltedge:
+          $ref: '#/components/schemas/FinancialConnectionDetails_saltedge'
       required:
       - aggregator
       - connection_status
@@ -4567,6 +4584,8 @@ components:
             connection_id: connection_id
           mono:
             account_id: account_id
+          saltedge:
+            connection_id: connection_id
           belvo:
             institution: institution
             link_id: link_id
@@ -4607,6 +4626,8 @@ components:
             connection_id: connection_id
           mono:
             account_id: account_id
+          saltedge:
+            connection_id: connection_id
           belvo:
             institution: institution
             link_id: link_id
@@ -5042,6 +5063,8 @@ components:
             connection_id: connection_id
           mono:
             account_id: account_id
+          saltedge:
+            connection_id: connection_id
           belvo:
             institution: institution
             link_id: link_id
@@ -6529,6 +6552,16 @@ components:
       - provider_id
       - refresh_token
       type: object
+    FinancialConnectionDetails_saltedge:
+      description: Data needed to query data from SaltEdge.
+      example:
+        connection_id: connection_id
+      properties:
+        connection_id:
+          type: string
+      required:
+      - connection_id
+      type: object
     Transaction_merchant:
       example:
         name: name
@@ -7165,4 +7198,24 @@ components:
     finicityAppKey:
       in: header
       name: Finicity-App-Key
+      type: apiKey
+    basiqApiKey:
+      in: header
+      name: Basiq-Api-Key
+      type: apiKey
+    akoyaClientId:
+      in: header
+      name: Akoya-Client-Id
+      type: apiKey
+    akoyaClientSecret:
+      in: header
+      name: Akoya-Client-Secret
+      type: apiKey
+    saltEdgeAppId:
+      in: header
+      name: SaltEdge-App-Id
+      type: apiKey
+    saltEdgeAppSecret:
+      in: header
+      name: SaltEdge-App-Secret
       type: apiKey
