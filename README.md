@@ -45,3 +45,9 @@ func Run() {
 	create_link_token_response, _, err := client.FuseAPI.CreateLinkTokenExecute(client.FuseAPI.CreateLinkToken(context.Background()).CreateLinkTokenRequest(*create_link_token_request))
 }
 ```
+
+
+Publishing
+```
+go mod tidy
+```
