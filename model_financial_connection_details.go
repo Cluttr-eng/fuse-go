@@ -40,6 +40,7 @@ type FinancialConnectionDetails struct {
 	Belvo *FinancialConnectionDetailsBelvo `json:"belvo,omitempty"`
 	Finicity *FinancialConnectionDetailsFinicity `json:"finicity,omitempty"`
 	Akoya *FinancialConnectionDetailsAkoya `json:"akoya,omitempty"`
+	Saltedge *FinancialConnectionDetailsSaltedge `json:"saltedge,omitempty"`
 }
 
 // NewFinancialConnectionDetails instantiates a new FinancialConnectionDetails object
@@ -568,6 +569,38 @@ func (o *FinancialConnectionDetails) SetAkoya(v FinancialConnectionDetailsAkoya)
 	o.Akoya = &v
 }
 
+// GetSaltedge returns the Saltedge field value if set, zero value otherwise.
+func (o *FinancialConnectionDetails) GetSaltedge() FinancialConnectionDetailsSaltedge {
+	if o == nil || IsNil(o.Saltedge) {
+		var ret FinancialConnectionDetailsSaltedge
+		return ret
+	}
+	return *o.Saltedge
+}
+
+// GetSaltedgeOk returns a tuple with the Saltedge field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FinancialConnectionDetails) GetSaltedgeOk() (*FinancialConnectionDetailsSaltedge, bool) {
+	if o == nil || IsNil(o.Saltedge) {
+		return nil, false
+	}
+	return o.Saltedge, true
+}
+
+// HasSaltedge returns a boolean if a field has been set.
+func (o *FinancialConnectionDetails) HasSaltedge() bool {
+	if o != nil && !IsNil(o.Saltedge) {
+		return true
+	}
+
+	return false
+}
+
+// SetSaltedge gets a reference to the given FinancialConnectionDetailsSaltedge and assigns it to the Saltedge field.
+func (o *FinancialConnectionDetails) SetSaltedge(v FinancialConnectionDetailsSaltedge) {
+	o.Saltedge = &v
+}
+
 func (o FinancialConnectionDetails) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -618,6 +651,9 @@ func (o FinancialConnectionDetails) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Akoya) {
 		toSerialize["akoya"] = o.Akoya
+	}
+	if !IsNil(o.Saltedge) {
+		toSerialize["saltedge"] = o.Saltedge
 	}
 	return toSerialize, nil
 }

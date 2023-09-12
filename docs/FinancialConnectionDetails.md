@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **Belvo** | Pointer to [**FinancialConnectionDetailsBelvo**](FinancialConnectionDetailsBelvo.md) |  | [optional] 
 **Finicity** | Pointer to [**FinancialConnectionDetailsFinicity**](FinancialConnectionDetailsFinicity.md) |  | [optional] 
 **Akoya** | Pointer to [**FinancialConnectionDetailsAkoya**](FinancialConnectionDetailsAkoya.md) |  | [optional] 
+**Saltedge** | Pointer to [**FinancialConnectionDetailsSaltedge**](FinancialConnectionDetailsSaltedge.md) |  | [optional] 
 
 ## Methods
 
@@ -440,6 +441,31 @@ SetAkoya sets Akoya field to given value.
 `func (o *FinancialConnectionDetails) HasAkoya() bool`
 
 HasAkoya returns a boolean if a field has been set.
+
+### GetSaltedge
+
+`func (o *FinancialConnectionDetails) GetSaltedge() FinancialConnectionDetailsSaltedge`
+
+GetSaltedge returns the Saltedge field if non-nil, zero value otherwise.
+
+### GetSaltedgeOk
+
+`func (o *FinancialConnectionDetails) GetSaltedgeOk() (*FinancialConnectionDetailsSaltedge, bool)`
+
+GetSaltedgeOk returns a tuple with the Saltedge field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSaltedge
+
+`func (o *FinancialConnectionDetails) SetSaltedge(v FinancialConnectionDetailsSaltedge)`
+
+SetSaltedge sets Saltedge field to given value.
+
+### HasSaltedge
+
+`func (o *FinancialConnectionDetails) HasSaltedge() bool`
+
+HasSaltedge returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

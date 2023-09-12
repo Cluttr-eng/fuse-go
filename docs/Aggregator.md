@@ -21,6 +21,8 @@
 
 * `PLAID` (value: `"plaid"`)
 
+* `SALTEDGE` (value: `"saltedge"`)
+
 * `SNAPTRADE` (value: `"snaptrade"`)
 
 * `TELLER` (value: `"teller"`)
