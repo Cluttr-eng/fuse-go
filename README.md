@@ -49,5 +49,6 @@ func Run() {
 
 Publishing
 ```
+Change go.mod module path to module github.com/Cluttr-eng/fuse-go
 go mod tidy
 ```
