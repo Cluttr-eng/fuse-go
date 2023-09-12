@@ -3,12 +3,17 @@
 ## Quick start
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
 
+Add dependency
+```
+go get github.com/Cluttr-eng/fuse-go@VERSION
+```
+
 ```
 package fuse_go
 
 import (
 	"context"
-	"fuse"
+	fuse "github.com/Cluttr-eng/fuse-go"
 	"os"
 	"testing"
 )
