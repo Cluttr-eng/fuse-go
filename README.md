@@ -43,6 +43,7 @@ func Run() {
 		fuse.PRODUCT_BALANCE,
 	}
 
+	//If you are using web SDKs, pass in the "is_web_view" property and set it to false, otherwise the Fuse frontend will not work. 
 	create_session_request := *fuse.NewCreateSessionRequest(aggregators, products, *fuse.NewEntity("entity-id"))
 	create_session_response, _, err := client.FuseAPI.CreateSessionExecute(client.FuseAPI.CreateSession(context.Background()).CreateSessionRequest(create_session_request))
 
