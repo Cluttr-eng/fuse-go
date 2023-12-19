@@ -12,6 +12,7 @@ package fuse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the SyncTransactionsRequest type satisfies the MappedNullable interface at compile time
@@ -26,6 +27,8 @@ type SyncTransactionsRequest struct {
 	// The number of transaction updates to fetch.
 	Count *int32 `json:"count,omitempty"`
 }
+
+type _SyncTransactionsRequest SyncTransactionsRequest
 
 // NewSyncTransactionsRequest instantiates a new SyncTransactionsRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -151,6 +154,41 @@ func (o SyncTransactionsRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["count"] = o.Count
 	}
 	return toSerialize, nil
+}
+
+func (o *SyncTransactionsRequest) UnmarshalJSON(bytes []byte) (err error) {
+    // This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"access_token",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSyncTransactionsRequest := _SyncTransactionsRequest{}
+
+	err = json.Unmarshal(bytes, &varSyncTransactionsRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SyncTransactionsRequest(varSyncTransactionsRequest)
+
+	return err
 }
 
 type NullableSyncTransactionsRequest struct {

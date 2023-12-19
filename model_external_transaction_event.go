@@ -12,6 +12,7 @@ package fuse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the ExternalTransactionEvent type satisfies the MappedNullable interface at compile time
@@ -37,6 +38,8 @@ type ExternalTransactionEvent struct {
 	// The running balance of the account after the transaction has occurred, in cents
 	Balance *float32 `json:"balance,omitempty"`
 }
+
+type _ExternalTransactionEvent ExternalTransactionEvent
 
 // NewExternalTransactionEvent instantiates a new ExternalTransactionEvent object
 // This constructor will assign default values to properties that have it defined,
@@ -431,6 +434,47 @@ func (o ExternalTransactionEvent) ToMap() (map[string]interface{}, error) {
 		toSerialize["balance"] = o.Balance
 	}
 	return toSerialize, nil
+}
+
+func (o *ExternalTransactionEvent) UnmarshalJSON(bytes []byte) (err error) {
+    // This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"event_type",
+		"status",
+		"amount",
+		"iso_currency_code",
+		"merchant_name",
+		"timestamp",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varExternalTransactionEvent := _ExternalTransactionEvent{}
+
+	err = json.Unmarshal(bytes, &varExternalTransactionEvent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ExternalTransactionEvent(varExternalTransactionEvent)
+
+	return err
 }
 
 type NullableExternalTransactionEvent struct {

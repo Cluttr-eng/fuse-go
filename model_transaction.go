@@ -12,6 +12,7 @@ package fuse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the Transaction type satisfies the MappedNullable interface at compile time
@@ -42,6 +43,8 @@ type Transaction struct {
 	IsoCurrencyCode *string `json:"iso_currency_code,omitempty"`
 	RemoteData interface{} `json:"remote_data"`
 }
+
+type _Transaction Transaction
 
 // NewTransaction instantiates a new Transaction object
 // This constructor will assign default values to properties that have it defined,
@@ -405,6 +408,50 @@ func (o Transaction) ToMap() (map[string]interface{}, error) {
 		toSerialize["remote_data"] = o.RemoteData
 	}
 	return toSerialize, nil
+}
+
+func (o *Transaction) UnmarshalJSON(bytes []byte) (err error) {
+    // This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"remote_id",
+		"remote_account_id",
+		"amount",
+		"date",
+		"description",
+		"category",
+		"merchant",
+		"status",
+		"type",
+		"remote_data",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTransaction := _Transaction{}
+
+	err = json.Unmarshal(bytes, &varTransaction)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Transaction(varTransaction)
+
+	return err
 }
 
 type NullableTransaction struct {

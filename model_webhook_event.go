@@ -12,6 +12,7 @@ package fuse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the WebhookEvent type satisfies the MappedNullable interface at compile time
@@ -34,6 +35,8 @@ type WebhookEvent struct {
 	RemovedTransactionIds []string `json:"removed_transaction_ids,omitempty"`
 	RemoteData interface{} `json:"remote_data"`
 }
+
+type _WebhookEvent WebhookEvent
 
 // NewWebhookEvent instantiates a new WebhookEvent object
 // This constructor will assign default values to properties that have it defined,
@@ -337,6 +340,45 @@ func (o WebhookEvent) ToMap() (map[string]interface{}, error) {
 		toSerialize["remote_data"] = o.RemoteData
 	}
 	return toSerialize, nil
+}
+
+func (o *WebhookEvent) UnmarshalJSON(bytes []byte) (err error) {
+    // This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"financial_connection_id",
+		"environment",
+		"source",
+		"remote_data",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varWebhookEvent := _WebhookEvent{}
+
+	err = json.Unmarshal(bytes, &varWebhookEvent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = WebhookEvent(varWebhookEvent)
+
+	return err
 }
 
 type NullableWebhookEvent struct {

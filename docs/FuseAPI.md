@@ -27,8 +27,11 @@ Method | HTTP request | Description
 [**GetFinancialInstitution**](FuseAPI.md#GetFinancialInstitution) | **Get** /v1/financial_connections/institutions/{institution_id} | Get a financial institution
 [**GetInvestmentHoldings**](FuseAPI.md#GetInvestmentHoldings) | **Post** /v1/financial_connections/investments/holdings | Get investment holdings
 [**GetInvestmentTransactions**](FuseAPI.md#GetInvestmentTransactions) | **Post** /v1/financial_connections/investments/transactions | Get investment transactions
+[**GetRecommendedFinancialInstitutions**](FuseAPI.md#GetRecommendedFinancialInstitutions) | **Post** /v1/financial_connections/institutions/recommended | 
 [**MigrateFinancialConnection**](FuseAPI.md#MigrateFinancialConnection) | **Post** /v1/financial_connections/migrate | Migrate financial connection
 [**RefreshAssetReport**](FuseAPI.md#RefreshAssetReport) | **Post** /v1/financial_connections/asset_report/refresh | 
+[**SearchFinancialInstitutions**](FuseAPI.md#SearchFinancialInstitutions) | **Post** /v1/financial_connections/institutions/search | 
+[**SelectFinancialInstitutions**](FuseAPI.md#SelectFinancialInstitutions) | **Post** /v1/financial_connections/institutions/select | 
 [**SyncFinancialConnectionsData**](FuseAPI.md#SyncFinancialConnectionsData) | **Post** /v1/financial_connections/sync | Sync financial connections data
 [**UpdateConsumerRiskReportCustomization**](FuseAPI.md#UpdateConsumerRiskReportCustomization) | **Post** /v1/risk_report/consumer/customization/{consumer_risk_report_customization_id} | Update consumer risk report customization
 [**V1FinancialConnectionsLiabilitiesPost**](FuseAPI.md#V1FinancialConnectionsLiabilitiesPost) | **Post** /v1/financial_connections/liabilities | Get liabilities
@@ -637,7 +640,7 @@ Name | Type | Description  | Notes
 
 ## GetAssetReport
 
-> RefreshAssetReportResponse GetAssetReport(ctx).GetAssetReportRequest(getAssetReportRequest).Execute()
+> AssetReportResponse GetAssetReport(ctx).GetAssetReportRequest(getAssetReportRequest).Execute()
 
 
 
@@ -665,7 +668,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetAssetReport``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetAssetReport`: RefreshAssetReportResponse
+    // response from `GetAssetReport`: AssetReportResponse
     fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetAssetReport`: %v\n", resp)
 }
 ```
@@ -685,7 +688,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RefreshAssetReportResponse**](RefreshAssetReportResponse.md)
+[**AssetReportResponse**](AssetReportResponse.md)
 
 ### Authorization
 
@@ -1561,6 +1564,72 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetRecommendedFinancialInstitutions
+
+> GetRecommendedFinancialInstitutionsResponse GetRecommendedFinancialInstitutions(ctx).GetRecommendedFinancialInstitutionsRequest(getRecommendedFinancialInstitutionsRequest).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+    getRecommendedFinancialInstitutionsRequest := *openapiclient.NewGetRecommendedFinancialInstitutionsRequest("SessionClientSecret_example") // GetRecommendedFinancialInstitutionsRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FuseAPI.GetRecommendedFinancialInstitutions(context.Background()).GetRecommendedFinancialInstitutionsRequest(getRecommendedFinancialInstitutionsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetRecommendedFinancialInstitutions``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetRecommendedFinancialInstitutions`: GetRecommendedFinancialInstitutionsResponse
+    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetRecommendedFinancialInstitutions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetRecommendedFinancialInstitutionsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **getRecommendedFinancialInstitutionsRequest** | [**GetRecommendedFinancialInstitutionsRequest**](GetRecommendedFinancialInstitutionsRequest.md) |  | 
+
+### Return type
+
+[**GetRecommendedFinancialInstitutionsResponse**](GetRecommendedFinancialInstitutionsResponse.md)
+
+### Authorization
+
+[fuseApiKey](../README.md#fuseApiKey), [fuseClientId](../README.md#fuseClientId)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## MigrateFinancialConnection
 
 > MigrateFinancialConnectionsTokenResponse MigrateFinancialConnection(ctx).MigrateFinancialConnectionsTokenRequest(migrateFinancialConnectionsTokenRequest).Execute()
@@ -1629,7 +1698,7 @@ Name | Type | Description  | Notes
 
 ## RefreshAssetReport
 
-> AssetReportResponse RefreshAssetReport(ctx).RefreshAssetReportRequest(refreshAssetReportRequest).Execute()
+> RefreshAssetReportResponse RefreshAssetReport(ctx).RefreshAssetReportRequest(refreshAssetReportRequest).Execute()
 
 
 
@@ -1657,7 +1726,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.RefreshAssetReport``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `RefreshAssetReport`: AssetReportResponse
+    // response from `RefreshAssetReport`: RefreshAssetReportResponse
     fmt.Fprintf(os.Stdout, "Response from `FuseAPI.RefreshAssetReport`: %v\n", resp)
 }
 ```
@@ -1677,7 +1746,139 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AssetReportResponse**](AssetReportResponse.md)
+[**RefreshAssetReportResponse**](RefreshAssetReportResponse.md)
+
+### Authorization
+
+[fuseApiKey](../README.md#fuseApiKey), [fuseClientId](../README.md#fuseClientId)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SearchFinancialInstitutions
+
+> SearchFinancialInstitutionsResponse SearchFinancialInstitutions(ctx).SearchFinancialInstitutionsRequest(searchFinancialInstitutionsRequest).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+    searchFinancialInstitutionsRequest := *openapiclient.NewSearchFinancialInstitutionsRequest("SessionClientSecret_example", "SearchTerm_example") // SearchFinancialInstitutionsRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FuseAPI.SearchFinancialInstitutions(context.Background()).SearchFinancialInstitutionsRequest(searchFinancialInstitutionsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.SearchFinancialInstitutions``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `SearchFinancialInstitutions`: SearchFinancialInstitutionsResponse
+    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.SearchFinancialInstitutions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSearchFinancialInstitutionsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **searchFinancialInstitutionsRequest** | [**SearchFinancialInstitutionsRequest**](SearchFinancialInstitutionsRequest.md) |  | 
+
+### Return type
+
+[**SearchFinancialInstitutionsResponse**](SearchFinancialInstitutionsResponse.md)
+
+### Authorization
+
+[fuseApiKey](../README.md#fuseApiKey), [fuseClientId](../README.md#fuseClientId)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SelectFinancialInstitutions
+
+> SelectFinancialInstitutionsResponse SelectFinancialInstitutions(ctx).SelectFinancialInstitutionsRequest(selectFinancialInstitutionsRequest).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+    selectFinancialInstitutionsRequest := *openapiclient.NewSelectFinancialInstitutionsRequest("SessionClientSecret_example", "FinancialInstitutionId_example") // SelectFinancialInstitutionsRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FuseAPI.SelectFinancialInstitutions(context.Background()).SelectFinancialInstitutionsRequest(selectFinancialInstitutionsRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.SelectFinancialInstitutions``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `SelectFinancialInstitutions`: SelectFinancialInstitutionsResponse
+    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.SelectFinancialInstitutions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSelectFinancialInstitutionsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **selectFinancialInstitutionsRequest** | [**SelectFinancialInstitutionsRequest**](SelectFinancialInstitutionsRequest.md) |  | 
+
+### Return type
+
+[**SelectFinancialInstitutionsResponse**](SelectFinancialInstitutionsResponse.md)
 
 ### Authorization
 

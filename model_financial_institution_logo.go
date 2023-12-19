@@ -12,6 +12,7 @@ package fuse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the FinancialInstitutionLogo type satisfies the MappedNullable interface at compile time
@@ -26,6 +27,8 @@ type FinancialInstitutionLogo struct {
 	// Optional format of the image, if known.
 	Format *string `json:"format,omitempty"`
 }
+
+type _FinancialInstitutionLogo FinancialInstitutionLogo
 
 // NewFinancialInstitutionLogo instantiates a new FinancialInstitutionLogo object
 // This constructor will assign default values to properties that have it defined,
@@ -142,6 +145,42 @@ func (o FinancialInstitutionLogo) ToMap() (map[string]interface{}, error) {
 		toSerialize["format"] = o.Format
 	}
 	return toSerialize, nil
+}
+
+func (o *FinancialInstitutionLogo) UnmarshalJSON(bytes []byte) (err error) {
+    // This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"image",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFinancialInstitutionLogo := _FinancialInstitutionLogo{}
+
+	err = json.Unmarshal(bytes, &varFinancialInstitutionLogo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FinancialInstitutionLogo(varFinancialInstitutionLogo)
+
+	return err
 }
 
 type NullableFinancialInstitutionLogo struct {

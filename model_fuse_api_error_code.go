@@ -67,6 +67,8 @@ const (
 	FUSEAPIERRORCODE_MISSING_AKOYA_CLIENT_SECRET_HEADER FuseApiErrorCode = "missing_akoya_client_secret_header"
 	FUSEAPIERRORCODE_MISSING_SALTEDGE_APP_ID_HEADER FuseApiErrorCode = "missing_saltedge_app_id_header"
 	FUSEAPIERRORCODE_MISSING_SALTEDGE_APP_SECRET_HEADER FuseApiErrorCode = "missing_saltedge_app_secret_header"
+	FUSEAPIERRORCODE_MISSING_SOPHTRON_USER_ID_HEADER FuseApiErrorCode = "missing_sophtron_user_id_header"
+	FUSEAPIERRORCODE_MISSING_SOPHTRON_ACCESS_KEY_HEADER FuseApiErrorCode = "missing_sophtron_access_key_header"
 	FUSEAPIERRORCODE_AGGREGATOR_ERROR FuseApiErrorCode = "aggregator_error"
 	FUSEAPIERRORCODE_AGGREGATOR_DISCONNECTED_ERROR FuseApiErrorCode = "aggregator_disconnected_error"
 	FUSEAPIERRORCODE_AGGREGATOR_CONNECTION_FINISHED_ERROR FuseApiErrorCode = "aggregator_connection_finished_error"
@@ -130,6 +132,8 @@ var AllowedFuseApiErrorCodeEnumValues = []FuseApiErrorCode{
 	"missing_akoya_client_secret_header",
 	"missing_saltedge_app_id_header",
 	"missing_saltedge_app_secret_header",
+	"missing_sophtron_user_id_header",
+	"missing_sophtron_access_key_header",
 	"aggregator_error",
 	"aggregator_disconnected_error",
 	"aggregator_connection_finished_error",

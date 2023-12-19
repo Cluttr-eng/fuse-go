@@ -12,6 +12,7 @@ package fuse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the Currency type satisfies the MappedNullable interface at compile time
@@ -24,6 +25,8 @@ type Currency struct {
 	// The name of the currency
 	Name *string `json:"name,omitempty"`
 }
+
+type _Currency Currency
 
 // NewCurrency instantiates a new Currency object
 // This constructor will assign default values to properties that have it defined,
@@ -114,6 +117,41 @@ func (o Currency) ToMap() (map[string]interface{}, error) {
 		toSerialize["name"] = o.Name
 	}
 	return toSerialize, nil
+}
+
+func (o *Currency) UnmarshalJSON(bytes []byte) (err error) {
+    // This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"code",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCurrency := _Currency{}
+
+	err = json.Unmarshal(bytes, &varCurrency)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Currency(varCurrency)
+
+	return err
 }
 
 type NullableCurrency struct {

@@ -20,11 +20,11 @@ var _ MappedNullable = &AssetReportAccountsInnerBalance{}
 // AssetReportAccountsInnerBalance struct for AssetReportAccountsInnerBalance
 type AssetReportAccountsInnerBalance struct {
 	// Amount after factoring in pending balances
-	Available *float32 `json:"available,omitempty"`
+	Available NullableFloat32 `json:"available,omitempty"`
 	// Amount without factoring in pending balances
-	Current *float32 `json:"current,omitempty"`
+	Current NullableFloat32 `json:"current,omitempty"`
 	// The ISO-4217 currency code of the balance.
-	IsoCurrencyCode *string `json:"iso_currency_code,omitempty"`
+	IsoCurrencyCode NullableString `json:"iso_currency_code,omitempty"`
 }
 
 // NewAssetReportAccountsInnerBalance instantiates a new AssetReportAccountsInnerBalance object
@@ -44,100 +44,130 @@ func NewAssetReportAccountsInnerBalanceWithDefaults() *AssetReportAccountsInnerB
 	return &this
 }
 
-// GetAvailable returns the Available field value if set, zero value otherwise.
+// GetAvailable returns the Available field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AssetReportAccountsInnerBalance) GetAvailable() float32 {
-	if o == nil || IsNil(o.Available) {
+	if o == nil || IsNil(o.Available.Get()) {
 		var ret float32
 		return ret
 	}
-	return *o.Available
+	return *o.Available.Get()
 }
 
 // GetAvailableOk returns a tuple with the Available field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *AssetReportAccountsInnerBalance) GetAvailableOk() (*float32, bool) {
-	if o == nil || IsNil(o.Available) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Available, true
+	return o.Available.Get(), o.Available.IsSet()
 }
 
 // HasAvailable returns a boolean if a field has been set.
 func (o *AssetReportAccountsInnerBalance) HasAvailable() bool {
-	if o != nil && !IsNil(o.Available) {
+	if o != nil && o.Available.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAvailable gets a reference to the given float32 and assigns it to the Available field.
+// SetAvailable gets a reference to the given NullableFloat32 and assigns it to the Available field.
 func (o *AssetReportAccountsInnerBalance) SetAvailable(v float32) {
-	o.Available = &v
+	o.Available.Set(&v)
+}
+// SetAvailableNil sets the value for Available to be an explicit nil
+func (o *AssetReportAccountsInnerBalance) SetAvailableNil() {
+	o.Available.Set(nil)
 }
 
-// GetCurrent returns the Current field value if set, zero value otherwise.
+// UnsetAvailable ensures that no value is present for Available, not even an explicit nil
+func (o *AssetReportAccountsInnerBalance) UnsetAvailable() {
+	o.Available.Unset()
+}
+
+// GetCurrent returns the Current field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AssetReportAccountsInnerBalance) GetCurrent() float32 {
-	if o == nil || IsNil(o.Current) {
+	if o == nil || IsNil(o.Current.Get()) {
 		var ret float32
 		return ret
 	}
-	return *o.Current
+	return *o.Current.Get()
 }
 
 // GetCurrentOk returns a tuple with the Current field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *AssetReportAccountsInnerBalance) GetCurrentOk() (*float32, bool) {
-	if o == nil || IsNil(o.Current) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Current, true
+	return o.Current.Get(), o.Current.IsSet()
 }
 
 // HasCurrent returns a boolean if a field has been set.
 func (o *AssetReportAccountsInnerBalance) HasCurrent() bool {
-	if o != nil && !IsNil(o.Current) {
+	if o != nil && o.Current.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCurrent gets a reference to the given float32 and assigns it to the Current field.
+// SetCurrent gets a reference to the given NullableFloat32 and assigns it to the Current field.
 func (o *AssetReportAccountsInnerBalance) SetCurrent(v float32) {
-	o.Current = &v
+	o.Current.Set(&v)
+}
+// SetCurrentNil sets the value for Current to be an explicit nil
+func (o *AssetReportAccountsInnerBalance) SetCurrentNil() {
+	o.Current.Set(nil)
 }
 
-// GetIsoCurrencyCode returns the IsoCurrencyCode field value if set, zero value otherwise.
+// UnsetCurrent ensures that no value is present for Current, not even an explicit nil
+func (o *AssetReportAccountsInnerBalance) UnsetCurrent() {
+	o.Current.Unset()
+}
+
+// GetIsoCurrencyCode returns the IsoCurrencyCode field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AssetReportAccountsInnerBalance) GetIsoCurrencyCode() string {
-	if o == nil || IsNil(o.IsoCurrencyCode) {
+	if o == nil || IsNil(o.IsoCurrencyCode.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.IsoCurrencyCode
+	return *o.IsoCurrencyCode.Get()
 }
 
 // GetIsoCurrencyCodeOk returns a tuple with the IsoCurrencyCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *AssetReportAccountsInnerBalance) GetIsoCurrencyCodeOk() (*string, bool) {
-	if o == nil || IsNil(o.IsoCurrencyCode) {
+	if o == nil {
 		return nil, false
 	}
-	return o.IsoCurrencyCode, true
+	return o.IsoCurrencyCode.Get(), o.IsoCurrencyCode.IsSet()
 }
 
 // HasIsoCurrencyCode returns a boolean if a field has been set.
 func (o *AssetReportAccountsInnerBalance) HasIsoCurrencyCode() bool {
-	if o != nil && !IsNil(o.IsoCurrencyCode) {
+	if o != nil && o.IsoCurrencyCode.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetIsoCurrencyCode gets a reference to the given string and assigns it to the IsoCurrencyCode field.
+// SetIsoCurrencyCode gets a reference to the given NullableString and assigns it to the IsoCurrencyCode field.
 func (o *AssetReportAccountsInnerBalance) SetIsoCurrencyCode(v string) {
-	o.IsoCurrencyCode = &v
+	o.IsoCurrencyCode.Set(&v)
+}
+// SetIsoCurrencyCodeNil sets the value for IsoCurrencyCode to be an explicit nil
+func (o *AssetReportAccountsInnerBalance) SetIsoCurrencyCodeNil() {
+	o.IsoCurrencyCode.Set(nil)
+}
+
+// UnsetIsoCurrencyCode ensures that no value is present for IsoCurrencyCode, not even an explicit nil
+func (o *AssetReportAccountsInnerBalance) UnsetIsoCurrencyCode() {
+	o.IsoCurrencyCode.Unset()
 }
 
 func (o AssetReportAccountsInnerBalance) MarshalJSON() ([]byte, error) {
@@ -150,14 +180,14 @@ func (o AssetReportAccountsInnerBalance) MarshalJSON() ([]byte, error) {
 
 func (o AssetReportAccountsInnerBalance) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Available) {
-		toSerialize["available"] = o.Available
+	if o.Available.IsSet() {
+		toSerialize["available"] = o.Available.Get()
 	}
-	if !IsNil(o.Current) {
-		toSerialize["current"] = o.Current
+	if o.Current.IsSet() {
+		toSerialize["current"] = o.Current.Get()
 	}
-	if !IsNil(o.IsoCurrencyCode) {
-		toSerialize["iso_currency_code"] = o.IsoCurrencyCode
+	if o.IsoCurrencyCode.IsSet() {
+		toSerialize["iso_currency_code"] = o.IsoCurrencyCode.Get()
 	}
 	return toSerialize, nil
 }

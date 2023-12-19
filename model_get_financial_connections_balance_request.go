@@ -12,6 +12,7 @@ package fuse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the GetFinancialConnectionsBalanceRequest type satisfies the MappedNullable interface at compile time
@@ -23,6 +24,8 @@ type GetFinancialConnectionsBalanceRequest struct {
 	AccessToken string `json:"access_token"`
 	Options *GetFinancialConnectionsBalanceRequestOptions `json:"options,omitempty"`
 }
+
+type _GetFinancialConnectionsBalanceRequest GetFinancialConnectionsBalanceRequest
 
 // NewGetFinancialConnectionsBalanceRequest instantiates a new GetFinancialConnectionsBalanceRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -113,6 +116,41 @@ func (o GetFinancialConnectionsBalanceRequest) ToMap() (map[string]interface{}, 
 		toSerialize["options"] = o.Options
 	}
 	return toSerialize, nil
+}
+
+func (o *GetFinancialConnectionsBalanceRequest) UnmarshalJSON(bytes []byte) (err error) {
+    // This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"access_token",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varGetFinancialConnectionsBalanceRequest := _GetFinancialConnectionsBalanceRequest{}
+
+	err = json.Unmarshal(bytes, &varGetFinancialConnectionsBalanceRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetFinancialConnectionsBalanceRequest(varGetFinancialConnectionsBalanceRequest)
+
+	return err
 }
 
 type NullableGetFinancialConnectionsBalanceRequest struct {

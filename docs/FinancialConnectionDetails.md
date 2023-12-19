@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **Finicity** | Pointer to [**FinancialConnectionDetailsFinicity**](FinancialConnectionDetailsFinicity.md) |  | [optional] 
 **Akoya** | Pointer to [**FinancialConnectionDetailsAkoya**](FinancialConnectionDetailsAkoya.md) |  | [optional] 
 **Saltedge** | Pointer to [**FinancialConnectionDetailsSaltedge**](FinancialConnectionDetailsSaltedge.md) |  | [optional] 
+**Sophtron** | Pointer to [**FinancialConnectionDetailsSophtron**](FinancialConnectionDetailsSophtron.md) |  | [optional] 
 
 ## Methods
 
@@ -466,6 +467,31 @@ SetSaltedge sets Saltedge field to given value.
 `func (o *FinancialConnectionDetails) HasSaltedge() bool`
 
 HasSaltedge returns a boolean if a field has been set.
+
+### GetSophtron
+
+`func (o *FinancialConnectionDetails) GetSophtron() FinancialConnectionDetailsSophtron`
+
+GetSophtron returns the Sophtron field if non-nil, zero value otherwise.
+
+### GetSophtronOk
+
+`func (o *FinancialConnectionDetails) GetSophtronOk() (*FinancialConnectionDetailsSophtron, bool)`
+
+GetSophtronOk returns a tuple with the Sophtron field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSophtron
+
+`func (o *FinancialConnectionDetails) SetSophtron(v FinancialConnectionDetailsSophtron)`
+
+SetSophtron sets Sophtron field to given value.
+
+### HasSophtron
+
+`func (o *FinancialConnectionDetails) HasSophtron() bool`
+
+HasSophtron returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
