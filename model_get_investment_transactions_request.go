@@ -12,6 +12,7 @@ package fuse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the GetInvestmentTransactionsRequest type satisfies the MappedNullable interface at compile time
@@ -31,6 +32,8 @@ type GetInvestmentTransactionsRequest struct {
 	RecordsPerPage int32 `json:"records_per_page"`
 	Options *GetInvestmentTransactionsRequestOptions `json:"options,omitempty"`
 }
+
+type _GetInvestmentTransactionsRequest GetInvestmentTransactionsRequest
 
 // NewGetInvestmentTransactionsRequest instantiates a new GetInvestmentTransactionsRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -227,6 +230,45 @@ func (o GetInvestmentTransactionsRequest) ToMap() (map[string]interface{}, error
 		toSerialize["options"] = o.Options
 	}
 	return toSerialize, nil
+}
+
+func (o *GetInvestmentTransactionsRequest) UnmarshalJSON(bytes []byte) (err error) {
+    // This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"access_token",
+		"start_date",
+		"end_date",
+		"page",
+		"records_per_page",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varGetInvestmentTransactionsRequest := _GetInvestmentTransactionsRequest{}
+
+	err = json.Unmarshal(bytes, &varGetInvestmentTransactionsRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetInvestmentTransactionsRequest(varGetInvestmentTransactionsRequest)
+
+	return err
 }
 
 type NullableGetInvestmentTransactionsRequest struct {

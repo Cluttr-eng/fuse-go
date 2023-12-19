@@ -12,6 +12,7 @@ package fuse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the FinancialConnectionDetailsBasiq type satisfies the MappedNullable interface at compile time
@@ -24,6 +25,8 @@ type FinancialConnectionDetailsBasiq struct {
 	// The identifier of the connection for Basiq.
 	ConnectionId string `json:"connection_id"`
 }
+
+type _FinancialConnectionDetailsBasiq FinancialConnectionDetailsBasiq
 
 // NewFinancialConnectionDetailsBasiq instantiates a new FinancialConnectionDetailsBasiq object
 // This constructor will assign default values to properties that have it defined,
@@ -105,6 +108,42 @@ func (o FinancialConnectionDetailsBasiq) ToMap() (map[string]interface{}, error)
 	toSerialize["user_id"] = o.UserId
 	toSerialize["connection_id"] = o.ConnectionId
 	return toSerialize, nil
+}
+
+func (o *FinancialConnectionDetailsBasiq) UnmarshalJSON(bytes []byte) (err error) {
+    // This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"user_id",
+		"connection_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFinancialConnectionDetailsBasiq := _FinancialConnectionDetailsBasiq{}
+
+	err = json.Unmarshal(bytes, &varFinancialConnectionDetailsBasiq)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FinancialConnectionDetailsBasiq(varFinancialConnectionDetailsBasiq)
+
+	return err
 }
 
 type NullableFinancialConnectionDetailsBasiq struct {

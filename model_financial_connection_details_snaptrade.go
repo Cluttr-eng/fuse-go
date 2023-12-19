@@ -12,6 +12,7 @@ package fuse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the FinancialConnectionDetailsSnaptrade type satisfies the MappedNullable interface at compile time
@@ -26,6 +27,8 @@ type FinancialConnectionDetailsSnaptrade struct {
 	// User secret for SnapTrade
 	UserSecret string `json:"user_secret"`
 }
+
+type _FinancialConnectionDetailsSnaptrade FinancialConnectionDetailsSnaptrade
 
 // NewFinancialConnectionDetailsSnaptrade instantiates a new FinancialConnectionDetailsSnaptrade object
 // This constructor will assign default values to properties that have it defined,
@@ -133,6 +136,43 @@ func (o FinancialConnectionDetailsSnaptrade) ToMap() (map[string]interface{}, er
 	toSerialize["user_id"] = o.UserId
 	toSerialize["user_secret"] = o.UserSecret
 	return toSerialize, nil
+}
+
+func (o *FinancialConnectionDetailsSnaptrade) UnmarshalJSON(bytes []byte) (err error) {
+    // This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"brokerage_authorization_id",
+		"user_id",
+		"user_secret",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFinancialConnectionDetailsSnaptrade := _FinancialConnectionDetailsSnaptrade{}
+
+	err = json.Unmarshal(bytes, &varFinancialConnectionDetailsSnaptrade)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FinancialConnectionDetailsSnaptrade(varFinancialConnectionDetailsSnaptrade)
+
+	return err
 }
 
 type NullableFinancialConnectionDetailsSnaptrade struct {

@@ -8,12 +8,13 @@ Name | Type | Description | Notes
 **Currency** | **string** | The ISO-4217 currency code of the account. | 
 **Fingerprint** | **string** | Uniquely identifies this account across all accounts for a single financial connection. Used for reconnection deduplication. See more information here: https://letsfuse.readme.io/docs/duplicate-accounts | 
 **Institution** | Pointer to [**FinancialConnectionsAccountInstitution**](FinancialConnectionsAccountInstitution.md) |  | [optional] 
-**Mask** | Pointer to **string** | The partial account number. | [optional] 
+**Mask** | Pointer to **NullableString** | The partial account number. | [optional] 
 **Name** | **string** | The account&#39;s name, ie &#39;My Checking&#39; | 
 **Type** | [**AccountType**](AccountType.md) |  | 
 **Subtype** | Pointer to [**NullableAccountSubtype**](AccountSubtype.md) |  | [optional] 
 **Balance** | [**FinancialConnectionsAccountCachedBalance**](FinancialConnectionsAccountCachedBalance.md) |  | 
-**RemoteData** | **interface{}** |  | 
+**AdditionalBalances** | Pointer to [**[]FinancialConnectionsAccountCachedBalance**](FinancialConnectionsAccountCachedBalance.md) | An array of additional balances. This may be used for investment type accounts where the user can have multiple balances across different currencies. | [optional] 
+**RemoteData** | **map[string]interface{}** |  | 
 **Aprs** | Pointer to [**[]FinancialConnectionsAccountLiabilityAllOfAprs**](FinancialConnectionsAccountLiabilityAllOfAprs.md) | The various interest rates that apply to the account. If APR data is not available, this array will be empty. | [optional] 
 **InterestRatePercentage** | Pointer to **float32** | The interest rate on the loan as a percentage. | [optional] 
 **OriginationPrincipalAmount** | Pointer to **float32** | The original principal balance of the loan. | [optional] 
@@ -26,7 +27,7 @@ Name | Type | Description | Notes
 
 ### NewFinancialConnectionsAccountLiability
 
-`func NewFinancialConnectionsAccountLiability(remoteId string, currency string, fingerprint string, name string, type_ AccountType, balance FinancialConnectionsAccountCachedBalance, remoteData interface{}, ) *FinancialConnectionsAccountLiability`
+`func NewFinancialConnectionsAccountLiability(remoteId string, currency string, fingerprint string, name string, type_ AccountType, balance FinancialConnectionsAccountCachedBalance, remoteData map[string]interface{}, ) *FinancialConnectionsAccountLiability`
 
 NewFinancialConnectionsAccountLiability instantiates a new FinancialConnectionsAccountLiability object
 This constructor will assign default values to properties that have it defined,
@@ -151,6 +152,16 @@ SetMask sets Mask field to given value.
 
 HasMask returns a boolean if a field has been set.
 
+### SetMaskNil
+
+`func (o *FinancialConnectionsAccountLiability) SetMaskNil(b bool)`
+
+ SetMaskNil sets the value for Mask to be an explicit nil
+
+### UnsetMask
+`func (o *FinancialConnectionsAccountLiability) UnsetMask()`
+
+UnsetMask ensures that no value is present for Mask, not even an explicit nil
 ### GetName
 
 `func (o *FinancialConnectionsAccountLiability) GetName() string`
@@ -246,36 +257,51 @@ and a boolean to check if the value has been set.
 SetBalance sets Balance field to given value.
 
 
+### GetAdditionalBalances
+
+`func (o *FinancialConnectionsAccountLiability) GetAdditionalBalances() []FinancialConnectionsAccountCachedBalance`
+
+GetAdditionalBalances returns the AdditionalBalances field if non-nil, zero value otherwise.
+
+### GetAdditionalBalancesOk
+
+`func (o *FinancialConnectionsAccountLiability) GetAdditionalBalancesOk() (*[]FinancialConnectionsAccountCachedBalance, bool)`
+
+GetAdditionalBalancesOk returns a tuple with the AdditionalBalances field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAdditionalBalances
+
+`func (o *FinancialConnectionsAccountLiability) SetAdditionalBalances(v []FinancialConnectionsAccountCachedBalance)`
+
+SetAdditionalBalances sets AdditionalBalances field to given value.
+
+### HasAdditionalBalances
+
+`func (o *FinancialConnectionsAccountLiability) HasAdditionalBalances() bool`
+
+HasAdditionalBalances returns a boolean if a field has been set.
+
 ### GetRemoteData
 
-`func (o *FinancialConnectionsAccountLiability) GetRemoteData() interface{}`
+`func (o *FinancialConnectionsAccountLiability) GetRemoteData() map[string]interface{}`
 
 GetRemoteData returns the RemoteData field if non-nil, zero value otherwise.
 
 ### GetRemoteDataOk
 
-`func (o *FinancialConnectionsAccountLiability) GetRemoteDataOk() (*interface{}, bool)`
+`func (o *FinancialConnectionsAccountLiability) GetRemoteDataOk() (*map[string]interface{}, bool)`
 
 GetRemoteDataOk returns a tuple with the RemoteData field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRemoteData
 
-`func (o *FinancialConnectionsAccountLiability) SetRemoteData(v interface{})`
+`func (o *FinancialConnectionsAccountLiability) SetRemoteData(v map[string]interface{})`
 
 SetRemoteData sets RemoteData field to given value.
 
 
-### SetRemoteDataNil
-
-`func (o *FinancialConnectionsAccountLiability) SetRemoteDataNil(b bool)`
-
- SetRemoteDataNil sets the value for RemoteData to be an explicit nil
-
-### UnsetRemoteData
-`func (o *FinancialConnectionsAccountLiability) UnsetRemoteData()`
-
-UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
 ### GetAprs
 
 `func (o *FinancialConnectionsAccountLiability) GetAprs() []FinancialConnectionsAccountLiabilityAllOfAprs`

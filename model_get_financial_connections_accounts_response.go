@@ -12,6 +12,7 @@ package fuse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the GetFinancialConnectionsAccountsResponse type satisfies the MappedNullable interface at compile time
@@ -24,6 +25,8 @@ type GetFinancialConnectionsAccountsResponse struct {
 	// An identifier that is exclusive to the request and can serve as a means for investigating and resolving issues.
 	RequestId string `json:"request_id"`
 }
+
+type _GetFinancialConnectionsAccountsResponse GetFinancialConnectionsAccountsResponse
 
 // NewGetFinancialConnectionsAccountsResponse instantiates a new GetFinancialConnectionsAccountsResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -131,6 +134,43 @@ func (o GetFinancialConnectionsAccountsResponse) ToMap() (map[string]interface{}
 	toSerialize["financial_connection"] = o.FinancialConnection
 	toSerialize["request_id"] = o.RequestId
 	return toSerialize, nil
+}
+
+func (o *GetFinancialConnectionsAccountsResponse) UnmarshalJSON(bytes []byte) (err error) {
+    // This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"accounts",
+		"financial_connection",
+		"request_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varGetFinancialConnectionsAccountsResponse := _GetFinancialConnectionsAccountsResponse{}
+
+	err = json.Unmarshal(bytes, &varGetFinancialConnectionsAccountsResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetFinancialConnectionsAccountsResponse(varGetFinancialConnectionsAccountsResponse)
+
+	return err
 }
 
 type NullableGetFinancialConnectionsAccountsResponse struct {

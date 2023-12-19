@@ -25,6 +25,8 @@
 
 * `SNAPTRADE` (value: `"snaptrade"`)
 
+* `SOPHTRON` (value: `"sophtron"`)
+
 * `TELLER` (value: `"teller"`)
 
 * `TRUELAYER` (value: `"truelayer"`)

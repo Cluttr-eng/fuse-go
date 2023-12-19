@@ -1261,7 +1261,7 @@ func (r ApiGetAssetReportRequest) GetAssetReportRequest(getAssetReportRequest Ge
 	return r
 }
 
-func (r ApiGetAssetReportRequest) Execute() (*RefreshAssetReportResponse, *http.Response, error) {
+func (r ApiGetAssetReportRequest) Execute() (*AssetReportResponse, *http.Response, error) {
 	return r.ApiService.GetAssetReportExecute(r)
 }
 
@@ -1281,13 +1281,13 @@ func (a *FuseAPIService) GetAssetReport(ctx context.Context) ApiGetAssetReportRe
 }
 
 // Execute executes the request
-//  @return RefreshAssetReportResponse
-func (a *FuseAPIService) GetAssetReportExecute(r ApiGetAssetReportRequest) (*RefreshAssetReportResponse, *http.Response, error) {
+//  @return AssetReportResponse
+func (a *FuseAPIService) GetAssetReportExecute(r ApiGetAssetReportRequest) (*AssetReportResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *RefreshAssetReportResponse
+		localVarReturnValue  *AssetReportResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FuseAPIService.GetAssetReport")
@@ -3131,6 +3131,141 @@ func (a *FuseAPIService) GetInvestmentTransactionsExecute(r ApiGetInvestmentTran
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetRecommendedFinancialInstitutionsRequest struct {
+	ctx context.Context
+	ApiService *FuseAPIService
+	getRecommendedFinancialInstitutionsRequest *GetRecommendedFinancialInstitutionsRequest
+}
+
+func (r ApiGetRecommendedFinancialInstitutionsRequest) GetRecommendedFinancialInstitutionsRequest(getRecommendedFinancialInstitutionsRequest GetRecommendedFinancialInstitutionsRequest) ApiGetRecommendedFinancialInstitutionsRequest {
+	r.getRecommendedFinancialInstitutionsRequest = &getRecommendedFinancialInstitutionsRequest
+	return r
+}
+
+func (r ApiGetRecommendedFinancialInstitutionsRequest) Execute() (*GetRecommendedFinancialInstitutionsResponse, *http.Response, error) {
+	return r.ApiService.GetRecommendedFinancialInstitutionsExecute(r)
+}
+
+/*
+GetRecommendedFinancialInstitutions Method for GetRecommendedFinancialInstitutions
+
+Get the default recommended list of institutions that will be displayed when the user is not searching for anything
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetRecommendedFinancialInstitutionsRequest
+*/
+func (a *FuseAPIService) GetRecommendedFinancialInstitutions(ctx context.Context) ApiGetRecommendedFinancialInstitutionsRequest {
+	return ApiGetRecommendedFinancialInstitutionsRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return GetRecommendedFinancialInstitutionsResponse
+func (a *FuseAPIService) GetRecommendedFinancialInstitutionsExecute(r ApiGetRecommendedFinancialInstitutionsRequest) (*GetRecommendedFinancialInstitutionsResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *GetRecommendedFinancialInstitutionsResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FuseAPIService.GetRecommendedFinancialInstitutions")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/financial_connections/institutions/recommended"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.getRecommendedFinancialInstitutionsRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["fuseApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Fuse-Api-Key"] = key
+			}
+		}
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["fuseClientId"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Fuse-Client-Id"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiMigrateFinancialConnectionRequest struct {
 	ctx context.Context
 	ApiService *FuseAPIService
@@ -3277,7 +3412,7 @@ func (r ApiRefreshAssetReportRequest) RefreshAssetReportRequest(refreshAssetRepo
 	return r
 }
 
-func (r ApiRefreshAssetReportRequest) Execute() (*AssetReportResponse, *http.Response, error) {
+func (r ApiRefreshAssetReportRequest) Execute() (*RefreshAssetReportResponse, *http.Response, error) {
 	return r.ApiService.RefreshAssetReportExecute(r)
 }
 
@@ -3297,13 +3432,13 @@ func (a *FuseAPIService) RefreshAssetReport(ctx context.Context) ApiRefreshAsset
 }
 
 // Execute executes the request
-//  @return AssetReportResponse
-func (a *FuseAPIService) RefreshAssetReportExecute(r ApiRefreshAssetReportRequest) (*AssetReportResponse, *http.Response, error) {
+//  @return RefreshAssetReportResponse
+func (a *FuseAPIService) RefreshAssetReportExecute(r ApiRefreshAssetReportRequest) (*RefreshAssetReportResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *AssetReportResponse
+		localVarReturnValue  *RefreshAssetReportResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FuseAPIService.RefreshAssetReport")
@@ -3336,6 +3471,276 @@ func (a *FuseAPIService) RefreshAssetReportExecute(r ApiRefreshAssetReportReques
 	}
 	// body params
 	localVarPostBody = r.refreshAssetReportRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["fuseApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Fuse-Api-Key"] = key
+			}
+		}
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["fuseClientId"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Fuse-Client-Id"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiSearchFinancialInstitutionsRequest struct {
+	ctx context.Context
+	ApiService *FuseAPIService
+	searchFinancialInstitutionsRequest *SearchFinancialInstitutionsRequest
+}
+
+func (r ApiSearchFinancialInstitutionsRequest) SearchFinancialInstitutionsRequest(searchFinancialInstitutionsRequest SearchFinancialInstitutionsRequest) ApiSearchFinancialInstitutionsRequest {
+	r.searchFinancialInstitutionsRequest = &searchFinancialInstitutionsRequest
+	return r
+}
+
+func (r ApiSearchFinancialInstitutionsRequest) Execute() (*SearchFinancialInstitutionsResponse, *http.Response, error) {
+	return r.ApiService.SearchFinancialInstitutionsExecute(r)
+}
+
+/*
+SearchFinancialInstitutions Method for SearchFinancialInstitutions
+
+Search for financial institutions given a search term.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiSearchFinancialInstitutionsRequest
+*/
+func (a *FuseAPIService) SearchFinancialInstitutions(ctx context.Context) ApiSearchFinancialInstitutionsRequest {
+	return ApiSearchFinancialInstitutionsRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return SearchFinancialInstitutionsResponse
+func (a *FuseAPIService) SearchFinancialInstitutionsExecute(r ApiSearchFinancialInstitutionsRequest) (*SearchFinancialInstitutionsResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SearchFinancialInstitutionsResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FuseAPIService.SearchFinancialInstitutions")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/financial_connections/institutions/search"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.searchFinancialInstitutionsRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["fuseApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Fuse-Api-Key"] = key
+			}
+		}
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["fuseClientId"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Fuse-Client-Id"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiSelectFinancialInstitutionsRequest struct {
+	ctx context.Context
+	ApiService *FuseAPIService
+	selectFinancialInstitutionsRequest *SelectFinancialInstitutionsRequest
+}
+
+func (r ApiSelectFinancialInstitutionsRequest) SelectFinancialInstitutionsRequest(selectFinancialInstitutionsRequest SelectFinancialInstitutionsRequest) ApiSelectFinancialInstitutionsRequest {
+	r.selectFinancialInstitutionsRequest = &selectFinancialInstitutionsRequest
+	return r
+}
+
+func (r ApiSelectFinancialInstitutionsRequest) Execute() (*SelectFinancialInstitutionsResponse, *http.Response, error) {
+	return r.ApiService.SelectFinancialInstitutionsExecute(r)
+}
+
+/*
+SelectFinancialInstitutions Method for SelectFinancialInstitutions
+
+Endpoint to call when the user has selected a financial institution.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiSelectFinancialInstitutionsRequest
+*/
+func (a *FuseAPIService) SelectFinancialInstitutions(ctx context.Context) ApiSelectFinancialInstitutionsRequest {
+	return ApiSelectFinancialInstitutionsRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return SelectFinancialInstitutionsResponse
+func (a *FuseAPIService) SelectFinancialInstitutionsExecute(r ApiSelectFinancialInstitutionsRequest) (*SelectFinancialInstitutionsResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SelectFinancialInstitutionsResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FuseAPIService.SelectFinancialInstitutions")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/financial_connections/institutions/select"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.selectFinancialInstitutionsRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

@@ -12,6 +12,7 @@ package fuse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the GetAssetReportRequest type satisfies the MappedNullable interface at compile time
@@ -24,6 +25,8 @@ type GetAssetReportRequest struct {
 	// The token associated with the Asset Report to retrieve.
 	AssetReportToken string `json:"asset_report_token"`
 }
+
+type _GetAssetReportRequest GetAssetReportRequest
 
 // NewGetAssetReportRequest instantiates a new GetAssetReportRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -105,6 +108,42 @@ func (o GetAssetReportRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["access_token"] = o.AccessToken
 	toSerialize["asset_report_token"] = o.AssetReportToken
 	return toSerialize, nil
+}
+
+func (o *GetAssetReportRequest) UnmarshalJSON(bytes []byte) (err error) {
+    // This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"access_token",
+		"asset_report_token",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varGetAssetReportRequest := _GetAssetReportRequest{}
+
+	err = json.Unmarshal(bytes, &varGetAssetReportRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetAssetReportRequest(varGetAssetReportRequest)
+
+	return err
 }
 
 type NullableGetAssetReportRequest struct {

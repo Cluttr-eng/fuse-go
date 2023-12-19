@@ -12,6 +12,7 @@ package fuse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the EvalConsumerRiskReportRequest type satisfies the MappedNullable interface at compile time
@@ -24,6 +25,8 @@ type EvalConsumerRiskReportRequest struct {
 	TimeFrame ConsumerRiskReportTimeFrame `json:"time_frame"`
 	Events []EvalConsumerRiskReportRequestEventsInner `json:"events"`
 }
+
+type _EvalConsumerRiskReportRequest EvalConsumerRiskReportRequest
 
 // NewEvalConsumerRiskReportRequest instantiates a new EvalConsumerRiskReportRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -131,6 +134,43 @@ func (o EvalConsumerRiskReportRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["time_frame"] = o.TimeFrame
 	toSerialize["events"] = o.Events
 	return toSerialize, nil
+}
+
+func (o *EvalConsumerRiskReportRequest) UnmarshalJSON(bytes []byte) (err error) {
+    // This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"window_size",
+		"time_frame",
+		"events",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varEvalConsumerRiskReportRequest := _EvalConsumerRiskReportRequest{}
+
+	err = json.Unmarshal(bytes, &varEvalConsumerRiskReportRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EvalConsumerRiskReportRequest(varEvalConsumerRiskReportRequest)
+
+	return err
 }
 
 type NullableEvalConsumerRiskReportRequest struct {

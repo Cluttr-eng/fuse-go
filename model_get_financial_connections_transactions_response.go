@@ -12,6 +12,7 @@ package fuse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the GetFinancialConnectionsTransactionsResponse type satisfies the MappedNullable interface at compile time
@@ -25,6 +26,8 @@ type GetFinancialConnectionsTransactionsResponse struct {
 	// An identifier that is exclusive to the request and can serve as a means for investigating and resolving issues.
 	RequestId string `json:"request_id"`
 }
+
+type _GetFinancialConnectionsTransactionsResponse GetFinancialConnectionsTransactionsResponse
 
 // NewGetFinancialConnectionsTransactionsResponse instantiates a new GetFinancialConnectionsTransactionsResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -132,6 +135,43 @@ func (o GetFinancialConnectionsTransactionsResponse) ToMap() (map[string]interfa
 	toSerialize["total_transactions"] = o.TotalTransactions
 	toSerialize["request_id"] = o.RequestId
 	return toSerialize, nil
+}
+
+func (o *GetFinancialConnectionsTransactionsResponse) UnmarshalJSON(bytes []byte) (err error) {
+    // This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"transactions",
+		"total_transactions",
+		"request_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varGetFinancialConnectionsTransactionsResponse := _GetFinancialConnectionsTransactionsResponse{}
+
+	err = json.Unmarshal(bytes, &varGetFinancialConnectionsTransactionsResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetFinancialConnectionsTransactionsResponse(varGetFinancialConnectionsTransactionsResponse)
+
+	return err
 }
 
 type NullableGetFinancialConnectionsTransactionsResponse struct {

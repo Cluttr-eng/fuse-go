@@ -312,6 +312,18 @@ func Test_fuse_FuseAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test FuseAPIService GetRecommendedFinancialInstitutions", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.FuseAPI.GetRecommendedFinancialInstitutions(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test FuseAPIService MigrateFinancialConnection", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -329,6 +341,30 @@ func Test_fuse_FuseAPIService(t *testing.T) {
 		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.FuseAPI.RefreshAssetReport(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test FuseAPIService SearchFinancialInstitutions", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.FuseAPI.SearchFinancialInstitutions(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test FuseAPIService SelectFinancialInstitutions", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.FuseAPI.SelectFinancialInstitutions(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

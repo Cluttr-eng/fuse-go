@@ -12,6 +12,7 @@ package fuse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the FinancialConnectionsOwnerEmailsInner type satisfies the MappedNullable interface at compile time
@@ -26,6 +27,8 @@ type FinancialConnectionsOwnerEmailsInner struct {
 	// Type of the email
 	Type *string `json:"type,omitempty"`
 }
+
+type _FinancialConnectionsOwnerEmailsInner FinancialConnectionsOwnerEmailsInner
 
 // NewFinancialConnectionsOwnerEmailsInner instantiates a new FinancialConnectionsOwnerEmailsInner object
 // This constructor will assign default values to properties that have it defined,
@@ -151,6 +154,41 @@ func (o FinancialConnectionsOwnerEmailsInner) ToMap() (map[string]interface{}, e
 		toSerialize["type"] = o.Type
 	}
 	return toSerialize, nil
+}
+
+func (o *FinancialConnectionsOwnerEmailsInner) UnmarshalJSON(bytes []byte) (err error) {
+    // This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"data",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFinancialConnectionsOwnerEmailsInner := _FinancialConnectionsOwnerEmailsInner{}
+
+	err = json.Unmarshal(bytes, &varFinancialConnectionsOwnerEmailsInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FinancialConnectionsOwnerEmailsInner(varFinancialConnectionsOwnerEmailsInner)
+
+	return err
 }
 
 type NullableFinancialConnectionsOwnerEmailsInner struct {

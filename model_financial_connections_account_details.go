@@ -12,6 +12,7 @@ package fuse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the FinancialConnectionsAccountDetails type satisfies the MappedNullable interface at compile time
@@ -25,6 +26,8 @@ type FinancialConnectionsAccountDetails struct {
 	AccountNumber *FinancialConnectionsAccountDetailsAccountNumber `json:"account_number,omitempty"`
 	RemoteData interface{} `json:"remote_data"`
 }
+
+type _FinancialConnectionsAccountDetails FinancialConnectionsAccountDetails
 
 // NewFinancialConnectionsAccountDetails instantiates a new FinancialConnectionsAccountDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -180,6 +183,42 @@ func (o FinancialConnectionsAccountDetails) ToMap() (map[string]interface{}, err
 		toSerialize["remote_data"] = o.RemoteData
 	}
 	return toSerialize, nil
+}
+
+func (o *FinancialConnectionsAccountDetails) UnmarshalJSON(bytes []byte) (err error) {
+    // This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"remote_id",
+		"remote_data",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFinancialConnectionsAccountDetails := _FinancialConnectionsAccountDetails{}
+
+	err = json.Unmarshal(bytes, &varFinancialConnectionsAccountDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FinancialConnectionsAccountDetails(varFinancialConnectionsAccountDetails)
+
+	return err
 }
 
 type NullableFinancialConnectionsAccountDetails struct {

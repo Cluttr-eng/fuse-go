@@ -12,6 +12,7 @@ package fuse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the MigrateFinancialConnectionsAggregatorConnectionDataMx type satisfies the MappedNullable interface at compile time
@@ -24,6 +25,8 @@ type MigrateFinancialConnectionsAggregatorConnectionDataMx struct {
 	// The unique identifier (GUID) of the member (connection) associated with the user within the MX platform.
 	MemberGuid *string `json:"member_guid,omitempty"`
 }
+
+type _MigrateFinancialConnectionsAggregatorConnectionDataMx MigrateFinancialConnectionsAggregatorConnectionDataMx
 
 // NewMigrateFinancialConnectionsAggregatorConnectionDataMx instantiates a new MigrateFinancialConnectionsAggregatorConnectionDataMx object
 // This constructor will assign default values to properties that have it defined,
@@ -114,6 +117,41 @@ func (o MigrateFinancialConnectionsAggregatorConnectionDataMx) ToMap() (map[stri
 		toSerialize["member_guid"] = o.MemberGuid
 	}
 	return toSerialize, nil
+}
+
+func (o *MigrateFinancialConnectionsAggregatorConnectionDataMx) UnmarshalJSON(bytes []byte) (err error) {
+    // This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"user_guid",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varMigrateFinancialConnectionsAggregatorConnectionDataMx := _MigrateFinancialConnectionsAggregatorConnectionDataMx{}
+
+	err = json.Unmarshal(bytes, &varMigrateFinancialConnectionsAggregatorConnectionDataMx)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MigrateFinancialConnectionsAggregatorConnectionDataMx(varMigrateFinancialConnectionsAggregatorConnectionDataMx)
+
+	return err
 }
 
 type NullableMigrateFinancialConnectionsAggregatorConnectionDataMx struct {
