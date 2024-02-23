@@ -12,6 +12,8 @@ package fuse
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FinanceScore type satisfies the MappedNullable interface at compile time
@@ -34,6 +36,8 @@ type FinanceScore struct {
 	// This quantifies a user's ability to repay debts. A lower score corresponds to missed payments, while a higher score signifies consistent debt repayment.
 	RepaymentsScore float32 `json:"repayments_score"`
 }
+
+type _FinanceScore FinanceScore
 
 // NewFinanceScore instantiates a new FinanceScore object
 // This constructor will assign default values to properties that have it defined,
@@ -245,6 +249,49 @@ func (o FinanceScore) ToMap() (map[string]interface{}, error) {
 	toSerialize["loan_payments_score"] = o.LoanPaymentsScore
 	toSerialize["repayments_score"] = o.RepaymentsScore
 	return toSerialize, nil
+}
+
+func (o *FinanceScore) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"value",
+		"savings_score",
+		"expense_stability_score",
+		"activity_age_score",
+		"income_score",
+		"loan_payments_score",
+		"repayments_score",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFinanceScore := _FinanceScore{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFinanceScore)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FinanceScore(varFinanceScore)
+
+	return err
 }
 
 type NullableFinanceScore struct {

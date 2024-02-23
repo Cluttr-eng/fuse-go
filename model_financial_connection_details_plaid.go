@@ -12,6 +12,8 @@ package fuse
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FinancialConnectionDetailsPlaid type satisfies the MappedNullable interface at compile time
@@ -24,6 +26,8 @@ type FinancialConnectionDetailsPlaid struct {
 	// ID of the item associated with the access token in Plaid
 	ItemId string `json:"item_id"`
 }
+
+type _FinancialConnectionDetailsPlaid FinancialConnectionDetailsPlaid
 
 // NewFinancialConnectionDetailsPlaid instantiates a new FinancialConnectionDetailsPlaid object
 // This constructor will assign default values to properties that have it defined,
@@ -105,6 +109,44 @@ func (o FinancialConnectionDetailsPlaid) ToMap() (map[string]interface{}, error)
 	toSerialize["access_token"] = o.AccessToken
 	toSerialize["item_id"] = o.ItemId
 	return toSerialize, nil
+}
+
+func (o *FinancialConnectionDetailsPlaid) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"access_token",
+		"item_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFinancialConnectionDetailsPlaid := _FinancialConnectionDetailsPlaid{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFinancialConnectionDetailsPlaid)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FinancialConnectionDetailsPlaid(varFinancialConnectionDetailsPlaid)
+
+	return err
 }
 
 type NullableFinancialConnectionDetailsPlaid struct {

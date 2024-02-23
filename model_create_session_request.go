@@ -12,6 +12,8 @@ package fuse
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the CreateSessionRequest type satisfies the MappedNullable interface at compile time
@@ -30,6 +32,8 @@ type CreateSessionRequest struct {
 	// Set to false for web SDKs (e.g., React), and true for mobile SDKs (e.g., React Native, Flutter, iOS, Android).
 	IsWebView *bool `json:"is_web_view,omitempty"`
 }
+
+type _CreateSessionRequest CreateSessionRequest
 
 // NewCreateSessionRequest instantiates a new CreateSessionRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -242,6 +246,45 @@ func (o CreateSessionRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["is_web_view"] = o.IsWebView
 	}
 	return toSerialize, nil
+}
+
+func (o *CreateSessionRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"supported_financial_institution_aggregators",
+		"products",
+		"entity",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreateSessionRequest := _CreateSessionRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCreateSessionRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateSessionRequest(varCreateSessionRequest)
+
+	return err
 }
 
 type NullableCreateSessionRequest struct {

@@ -12,6 +12,8 @@ package fuse
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FinancialConnectionDetailsFinverse type satisfies the MappedNullable interface at compile time
@@ -24,6 +26,8 @@ type FinancialConnectionDetailsFinverse struct {
 	// Login Identity Id for Finverse
 	LoginIdentityId *string `json:"login_identity_id,omitempty"`
 }
+
+type _FinancialConnectionDetailsFinverse FinancialConnectionDetailsFinverse
 
 // NewFinancialConnectionDetailsFinverse instantiates a new FinancialConnectionDetailsFinverse object
 // This constructor will assign default values to properties that have it defined,
@@ -114,6 +118,43 @@ func (o FinancialConnectionDetailsFinverse) ToMap() (map[string]interface{}, err
 		toSerialize["login_identity_id"] = o.LoginIdentityId
 	}
 	return toSerialize, nil
+}
+
+func (o *FinancialConnectionDetailsFinverse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"access_token",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFinancialConnectionDetailsFinverse := _FinancialConnectionDetailsFinverse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFinancialConnectionDetailsFinverse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FinancialConnectionDetailsFinverse(varFinancialConnectionDetailsFinverse)
+
+	return err
 }
 
 type NullableFinancialConnectionDetailsFinverse struct {

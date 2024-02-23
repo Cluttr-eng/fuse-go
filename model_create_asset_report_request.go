@@ -12,6 +12,8 @@ package fuse
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the CreateAssetReportRequest type satisfies the MappedNullable interface at compile time
@@ -24,6 +26,8 @@ type CreateAssetReportRequest struct {
 	// The maximum integer number of days of history to include in the Asset Report
 	DaysRequested float32 `json:"days_requested"`
 }
+
+type _CreateAssetReportRequest CreateAssetReportRequest
 
 // NewCreateAssetReportRequest instantiates a new CreateAssetReportRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -105,6 +109,44 @@ func (o CreateAssetReportRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["access_token"] = o.AccessToken
 	toSerialize["days_requested"] = o.DaysRequested
 	return toSerialize, nil
+}
+
+func (o *CreateAssetReportRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"access_token",
+		"days_requested",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreateAssetReportRequest := _CreateAssetReportRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCreateAssetReportRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateAssetReportRequest(varCreateAssetReportRequest)
+
+	return err
 }
 
 type NullableCreateAssetReportRequest struct {

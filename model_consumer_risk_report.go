@@ -12,6 +12,8 @@ package fuse
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the ConsumerRiskReport type satisfies the MappedNullable interface at compile time
@@ -35,6 +37,8 @@ type ConsumerRiskReport struct {
 	// Predicted balance for the timeframe.
 	PredictedBalance float32 `json:"predicted_balance"`
 }
+
+type _ConsumerRiskReport ConsumerRiskReport
 
 // NewConsumerRiskReport instantiates a new ConsumerRiskReport object
 // This constructor will assign default values to properties that have it defined,
@@ -298,6 +302,51 @@ func (o ConsumerRiskReport) ToMap() (map[string]interface{}, error) {
 	toSerialize["finance_score"] = o.FinanceScore
 	toSerialize["predicted_balance"] = o.PredictedBalance
 	return toSerialize, nil
+}
+
+func (o *ConsumerRiskReport) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"customization_id",
+		"spend_limit",
+		"current_spend",
+		"pending_payments_amount",
+		"iso_currency_code",
+		"last_updated",
+		"finance_score",
+		"predicted_balance",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varConsumerRiskReport := _ConsumerRiskReport{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varConsumerRiskReport)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ConsumerRiskReport(varConsumerRiskReport)
+
+	return err
 }
 
 type NullableConsumerRiskReport struct {

@@ -12,6 +12,8 @@ package fuse
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the GetFinancialConnectionsAccountsRequest type satisfies the MappedNullable interface at compile time
@@ -22,6 +24,8 @@ type GetFinancialConnectionsAccountsRequest struct {
 	// Access token for authentication
 	AccessToken string `json:"access_token"`
 }
+
+type _GetFinancialConnectionsAccountsRequest GetFinancialConnectionsAccountsRequest
 
 // NewGetFinancialConnectionsAccountsRequest instantiates a new GetFinancialConnectionsAccountsRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -77,6 +81,43 @@ func (o GetFinancialConnectionsAccountsRequest) ToMap() (map[string]interface{},
 	toSerialize := map[string]interface{}{}
 	toSerialize["access_token"] = o.AccessToken
 	return toSerialize, nil
+}
+
+func (o *GetFinancialConnectionsAccountsRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"access_token",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varGetFinancialConnectionsAccountsRequest := _GetFinancialConnectionsAccountsRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varGetFinancialConnectionsAccountsRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetFinancialConnectionsAccountsRequest(varGetFinancialConnectionsAccountsRequest)
+
+	return err
 }
 
 type NullableGetFinancialConnectionsAccountsRequest struct {
