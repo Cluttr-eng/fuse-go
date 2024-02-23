@@ -8,11 +8,12 @@ Name | Type | Description | Notes
 **Currency** | **string** | The ISO-4217 currency code of the account. | 
 **Fingerprint** | **string** | Uniquely identifies this account across all accounts for a single financial connection. Used for reconnection deduplication. See more information here: https://letsfuse.readme.io/docs/duplicate-accounts | 
 **Institution** | Pointer to [**FinancialConnectionsAccountInstitution**](FinancialConnectionsAccountInstitution.md) |  | [optional] 
-**Mask** | Pointer to **string** | The partial account number. | [optional] 
+**Mask** | Pointer to **NullableString** | The partial account number. | [optional] 
 **Name** | **string** | The account&#39;s name, ie &#39;My Checking&#39; | 
 **Type** | [**AccountType**](AccountType.md) |  | 
 **Subtype** | Pointer to [**NullableAccountSubtype**](AccountSubtype.md) |  | [optional] 
 **Balance** | [**FinancialConnectionsAccountCachedBalance**](FinancialConnectionsAccountCachedBalance.md) |  | 
+**AdditionalBalances** | Pointer to [**[]FinancialConnectionsAccountCachedBalance**](FinancialConnectionsAccountCachedBalance.md) | An array of additional balances. This may be used for investment type accounts where the user can have multiple balances across different currencies. | [optional] 
 **RemoteData** | **interface{}** |  | 
 
 ## Methods
@@ -144,6 +145,16 @@ SetMask sets Mask field to given value.
 
 HasMask returns a boolean if a field has been set.
 
+### SetMaskNil
+
+`func (o *FinancialConnectionsAccount) SetMaskNil(b bool)`
+
+ SetMaskNil sets the value for Mask to be an explicit nil
+
+### UnsetMask
+`func (o *FinancialConnectionsAccount) UnsetMask()`
+
+UnsetMask ensures that no value is present for Mask, not even an explicit nil
 ### GetName
 
 `func (o *FinancialConnectionsAccount) GetName() string`
@@ -238,6 +249,31 @@ and a boolean to check if the value has been set.
 
 SetBalance sets Balance field to given value.
 
+
+### GetAdditionalBalances
+
+`func (o *FinancialConnectionsAccount) GetAdditionalBalances() []FinancialConnectionsAccountCachedBalance`
+
+GetAdditionalBalances returns the AdditionalBalances field if non-nil, zero value otherwise.
+
+### GetAdditionalBalancesOk
+
+`func (o *FinancialConnectionsAccount) GetAdditionalBalancesOk() (*[]FinancialConnectionsAccountCachedBalance, bool)`
+
+GetAdditionalBalancesOk returns a tuple with the AdditionalBalances field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAdditionalBalances
+
+`func (o *FinancialConnectionsAccount) SetAdditionalBalances(v []FinancialConnectionsAccountCachedBalance)`
+
+SetAdditionalBalances sets AdditionalBalances field to given value.
+
+### HasAdditionalBalances
+
+`func (o *FinancialConnectionsAccount) HasAdditionalBalances() bool`
+
+HasAdditionalBalances returns a boolean if a field has been set.
 
 ### GetRemoteData
 

@@ -12,6 +12,8 @@ package fuse
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the DeleteConsumerRiskReportResponse type satisfies the MappedNullable interface at compile time
@@ -23,6 +25,8 @@ type DeleteConsumerRiskReportResponse struct {
 	// An identifier that is exclusive to the request and can serve as a means for investigating and resolving issues.
 	RequestId string `json:"request_id"`
 }
+
+type _DeleteConsumerRiskReportResponse DeleteConsumerRiskReportResponse
 
 // NewDeleteConsumerRiskReportResponse instantiates a new DeleteConsumerRiskReportResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -104,6 +108,44 @@ func (o DeleteConsumerRiskReportResponse) ToMap() (map[string]interface{}, error
 	toSerialize["id"] = o.Id
 	toSerialize["request_id"] = o.RequestId
 	return toSerialize, nil
+}
+
+func (o *DeleteConsumerRiskReportResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"request_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varDeleteConsumerRiskReportResponse := _DeleteConsumerRiskReportResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varDeleteConsumerRiskReportResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeleteConsumerRiskReportResponse(varDeleteConsumerRiskReportResponse)
+
+	return err
 }
 
 type NullableDeleteConsumerRiskReportResponse struct {

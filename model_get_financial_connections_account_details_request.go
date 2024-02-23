@@ -12,6 +12,8 @@ package fuse
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the GetFinancialConnectionsAccountDetailsRequest type satisfies the MappedNullable interface at compile time
@@ -21,7 +23,10 @@ var _ MappedNullable = &GetFinancialConnectionsAccountDetailsRequest{}
 type GetFinancialConnectionsAccountDetailsRequest struct {
 	// Access token for authentication
 	AccessToken string `json:"access_token"`
+	Options *GetFinancialConnectionsAccountDetailsRequestOptions `json:"options,omitempty"`
 }
+
+type _GetFinancialConnectionsAccountDetailsRequest GetFinancialConnectionsAccountDetailsRequest
 
 // NewGetFinancialConnectionsAccountDetailsRequest instantiates a new GetFinancialConnectionsAccountDetailsRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -65,6 +70,38 @@ func (o *GetFinancialConnectionsAccountDetailsRequest) SetAccessToken(v string) 
 	o.AccessToken = v
 }
 
+// GetOptions returns the Options field value if set, zero value otherwise.
+func (o *GetFinancialConnectionsAccountDetailsRequest) GetOptions() GetFinancialConnectionsAccountDetailsRequestOptions {
+	if o == nil || IsNil(o.Options) {
+		var ret GetFinancialConnectionsAccountDetailsRequestOptions
+		return ret
+	}
+	return *o.Options
+}
+
+// GetOptionsOk returns a tuple with the Options field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetFinancialConnectionsAccountDetailsRequest) GetOptionsOk() (*GetFinancialConnectionsAccountDetailsRequestOptions, bool) {
+	if o == nil || IsNil(o.Options) {
+		return nil, false
+	}
+	return o.Options, true
+}
+
+// HasOptions returns a boolean if a field has been set.
+func (o *GetFinancialConnectionsAccountDetailsRequest) HasOptions() bool {
+	if o != nil && !IsNil(o.Options) {
+		return true
+	}
+
+	return false
+}
+
+// SetOptions gets a reference to the given GetFinancialConnectionsAccountDetailsRequestOptions and assigns it to the Options field.
+func (o *GetFinancialConnectionsAccountDetailsRequest) SetOptions(v GetFinancialConnectionsAccountDetailsRequestOptions) {
+	o.Options = &v
+}
+
 func (o GetFinancialConnectionsAccountDetailsRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -76,7 +113,47 @@ func (o GetFinancialConnectionsAccountDetailsRequest) MarshalJSON() ([]byte, err
 func (o GetFinancialConnectionsAccountDetailsRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["access_token"] = o.AccessToken
+	if !IsNil(o.Options) {
+		toSerialize["options"] = o.Options
+	}
 	return toSerialize, nil
+}
+
+func (o *GetFinancialConnectionsAccountDetailsRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"access_token",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varGetFinancialConnectionsAccountDetailsRequest := _GetFinancialConnectionsAccountDetailsRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varGetFinancialConnectionsAccountDetailsRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetFinancialConnectionsAccountDetailsRequest(varGetFinancialConnectionsAccountDetailsRequest)
+
+	return err
 }
 
 type NullableGetFinancialConnectionsAccountDetailsRequest struct {

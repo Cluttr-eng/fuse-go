@@ -27,8 +27,11 @@ Method | HTTP request | Description
 [**GetFinancialInstitution**](FuseAPI.md#GetFinancialInstitution) | **Get** /v1/financial_connections/institutions/{institution_id} | Get a financial institution
 [**GetInvestmentHoldings**](FuseAPI.md#GetInvestmentHoldings) | **Post** /v1/financial_connections/investments/holdings | Get investment holdings
 [**GetInvestmentTransactions**](FuseAPI.md#GetInvestmentTransactions) | **Post** /v1/financial_connections/investments/transactions | Get investment transactions
+[**GetRecommendedFinancialInstitutions**](FuseAPI.md#GetRecommendedFinancialInstitutions) | **Post** /v1/financial_connections/institutions/recommended | 
 [**MigrateFinancialConnection**](FuseAPI.md#MigrateFinancialConnection) | **Post** /v1/financial_connections/migrate | Migrate financial connection
 [**RefreshAssetReport**](FuseAPI.md#RefreshAssetReport) | **Post** /v1/financial_connections/asset_report/refresh | 
+[**SearchFinancialInstitutions**](FuseAPI.md#SearchFinancialInstitutions) | **Post** /v1/financial_connections/institutions/search | 
+[**SelectFinancialInstitutions**](FuseAPI.md#SelectFinancialInstitutions) | **Post** /v1/financial_connections/institutions/select | 
 [**SyncFinancialConnectionsData**](FuseAPI.md#SyncFinancialConnectionsData) | **Post** /v1/financial_connections/sync | Sync financial connections data
 [**UpdateConsumerRiskReportCustomization**](FuseAPI.md#UpdateConsumerRiskReportCustomization) | **Post** /v1/risk_report/consumer/customization/{consumer_risk_report_customization_id} | Update consumer risk report customization
 [**V1FinancialConnectionsLiabilitiesPost**](FuseAPI.md#V1FinancialConnectionsLiabilitiesPost) | **Post** /v1/financial_connections/liabilities | Get liabilities
@@ -47,25 +50,25 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    accountId := "accountId_example" // string | 
-    addAccountEventsRequest := *openapiclient.NewAddAccountEventsRequest([]openapiclient.AddAccountEventsRequestEventsInner{openapiclient.AddAccountEventsRequest_events_inner{ExternalTransactionEvent: openapiclient.NewExternalTransactionEvent("Id_example", "EventType_example", openapiclient.ExternalTransactionEventStatus("pending"), float32(123), "IsoCurrencyCode_example", "MerchantName_example", "Timestamp_example")}}) // AddAccountEventsRequest |  (optional)
+	accountId := "accountId_example" // string | 
+	addAccountEventsRequest := *openapiclient.NewAddAccountEventsRequest([]openapiclient.AddAccountEventsRequestEventsInner{openapiclient.AddAccountEventsRequest_events_inner{ExternalTransactionEvent: openapiclient.NewExternalTransactionEvent("Id_example", "EventType_example", openapiclient.ExternalTransactionEventStatus("pending"), float32(123), "IsoCurrencyCode_example", "MerchantName_example", "Timestamp_example")}}) // AddAccountEventsRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.AddAccountEvents(context.Background(), accountId).AddAccountEventsRequest(addAccountEventsRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.AddAccountEvents``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddAccountEvents`: AddAccountEventsResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.AddAccountEvents`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.AddAccountEvents(context.Background(), accountId).AddAccountEventsRequest(addAccountEventsRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.AddAccountEvents``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddAccountEvents`: AddAccountEventsResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.AddAccountEvents`: %v\n", resp)
 }
 ```
 
@@ -119,24 +122,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    createAssetReportRequest := *openapiclient.NewCreateAssetReportRequest("AccessToken_example", float32(123)) // CreateAssetReportRequest |  (optional)
+	createAssetReportRequest := *openapiclient.NewCreateAssetReportRequest("AccessToken_example", float32(123)) // CreateAssetReportRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.CreateAssetReport(context.Background()).CreateAssetReportRequest(createAssetReportRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.CreateAssetReport``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateAssetReport`: CreateAssetReportResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.CreateAssetReport`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.CreateAssetReport(context.Background()).CreateAssetReportRequest(createAssetReportRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.CreateAssetReport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateAssetReport`: CreateAssetReportResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.CreateAssetReport`: %v\n", resp)
 }
 ```
 
@@ -185,24 +188,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    createConsumerRiskReportRequest := *openapiclient.NewCreateConsumerRiskReportRequest("AccountId_example", "IsoCurrencyCode_example", "CustomizationId_example") // CreateConsumerRiskReportRequest |  (optional)
+	createConsumerRiskReportRequest := *openapiclient.NewCreateConsumerRiskReportRequest("AccountId_example", "IsoCurrencyCode_example", "CustomizationId_example") // CreateConsumerRiskReportRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.CreateConsumerRiskReport(context.Background()).CreateConsumerRiskReportRequest(createConsumerRiskReportRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.CreateConsumerRiskReport``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateConsumerRiskReport`: CreateConsumerRiskReportResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.CreateConsumerRiskReport`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.CreateConsumerRiskReport(context.Background()).CreateConsumerRiskReportRequest(createConsumerRiskReportRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.CreateConsumerRiskReport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateConsumerRiskReport`: CreateConsumerRiskReportResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.CreateConsumerRiskReport`: %v\n", resp)
 }
 ```
 
@@ -249,24 +252,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    createConsumerRiskReportCustomizationRequest := *openapiclient.NewCreateConsumerRiskReportCustomizationRequest(openapiclient.ConsumerRiskReportTimeFrame("daily"), float32(123), float32(123), float32(123)) // CreateConsumerRiskReportCustomizationRequest |  (optional)
+	createConsumerRiskReportCustomizationRequest := *openapiclient.NewCreateConsumerRiskReportCustomizationRequest(openapiclient.ConsumerRiskReportTimeFrame("daily"), float32(123), float32(123), float32(123)) // CreateConsumerRiskReportCustomizationRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.CreateConsumerRiskReportCustomization(context.Background()).CreateConsumerRiskReportCustomizationRequest(createConsumerRiskReportCustomizationRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.CreateConsumerRiskReportCustomization``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateConsumerRiskReportCustomization`: CreateConsumerRiskReportCustomizationResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.CreateConsumerRiskReportCustomization`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.CreateConsumerRiskReportCustomization(context.Background()).CreateConsumerRiskReportCustomizationRequest(createConsumerRiskReportCustomizationRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.CreateConsumerRiskReportCustomization``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateConsumerRiskReportCustomization`: CreateConsumerRiskReportCustomizationResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.CreateConsumerRiskReportCustomization`: %v\n", resp)
 }
 ```
 
@@ -315,24 +318,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    createLinkTokenRequest := *openapiclient.NewCreateLinkTokenRequest("InstitutionId_example", *openapiclient.NewEntity("Id_example"), "ClientName_example", "SessionClientSecret_example") // CreateLinkTokenRequest |  (optional)
+	createLinkTokenRequest := *openapiclient.NewCreateLinkTokenRequest("InstitutionId_example", *openapiclient.NewEntity("Id_example"), "ClientName_example", "SessionClientSecret_example") // CreateLinkTokenRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.CreateLinkToken(context.Background()).CreateLinkTokenRequest(createLinkTokenRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.CreateLinkToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateLinkToken`: CreateLinkTokenResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.CreateLinkToken`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.CreateLinkToken(context.Background()).CreateLinkTokenRequest(createLinkTokenRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.CreateLinkToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateLinkToken`: CreateLinkTokenResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.CreateLinkToken`: %v\n", resp)
 }
 ```
 
@@ -381,24 +384,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    createSessionRequest := *openapiclient.NewCreateSessionRequest([]openapiclient.Aggregator{openapiclient.Aggregator("akoya")}, []openapiclient.Product{openapiclient.Product("account_details")}, *openapiclient.NewEntity("Id_example")) // CreateSessionRequest |  (optional)
+	createSessionRequest := *openapiclient.NewCreateSessionRequest([]openapiclient.Aggregator{openapiclient.Aggregator("akoya")}, []openapiclient.Product{openapiclient.Product("account_details")}, *openapiclient.NewEntity("Id_example")) // CreateSessionRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.CreateSession(context.Background()).CreateSessionRequest(createSessionRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.CreateSession``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateSession`: CreateSessionResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.CreateSession`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.CreateSession(context.Background()).CreateSessionRequest(createSessionRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.CreateSession``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateSession`: CreateSessionResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.CreateSession`: %v\n", resp)
 }
 ```
 
@@ -445,24 +448,24 @@ Delete a financial connection
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    financialConnectionIdToDelete := "financialConnectionIdToDelete_example" // string | 
+	financialConnectionIdToDelete := "financialConnectionIdToDelete_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.DeleteFinancialConnection(context.Background(), financialConnectionIdToDelete).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.DeleteFinancialConnection``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DeleteFinancialConnection`: DeleteFinancialConnectionResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.DeleteFinancialConnection`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.DeleteFinancialConnection(context.Background(), financialConnectionIdToDelete).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.DeleteFinancialConnection``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteFinancialConnection`: DeleteFinancialConnectionResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.DeleteFinancialConnection`: %v\n", resp)
 }
 ```
 
@@ -513,26 +516,26 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    fuseClientId := "fuseClientId_example" // string | 
-    fuseApiKey := "fuseApiKey_example" // string | 
-    enrichTransactionsRequest := *openapiclient.NewEnrichTransactionsRequest([]openapiclient.TransactionToEnrich{*openapiclient.NewTransactionToEnrich("Id_example", "Description_example", float32(123), "Direction_example")}) // EnrichTransactionsRequest |  (optional)
+	fuseClientId := "fuseClientId_example" // string | 
+	fuseApiKey := "fuseApiKey_example" // string | 
+	enrichTransactionsRequest := *openapiclient.NewEnrichTransactionsRequest([]openapiclient.TransactionToEnrich{*openapiclient.NewTransactionToEnrich("Id_example", "Description_example", float32(123), "Direction_example")}) // EnrichTransactionsRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.EnrichTransactions(context.Background()).FuseClientId(fuseClientId).FuseApiKey(fuseApiKey).EnrichTransactionsRequest(enrichTransactionsRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.EnrichTransactions``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `EnrichTransactions`: EnrichTransactionsResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.EnrichTransactions`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.EnrichTransactions(context.Background()).FuseClientId(fuseClientId).FuseApiKey(fuseApiKey).EnrichTransactionsRequest(enrichTransactionsRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.EnrichTransactions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `EnrichTransactions`: EnrichTransactionsResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.EnrichTransactions`: %v\n", resp)
 }
 ```
 
@@ -583,24 +586,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    exchangeFinancialConnectionsPublicTokenRequest := *openapiclient.NewExchangeFinancialConnectionsPublicTokenRequest("PublicToken_example") // ExchangeFinancialConnectionsPublicTokenRequest |  (optional)
+	exchangeFinancialConnectionsPublicTokenRequest := *openapiclient.NewExchangeFinancialConnectionsPublicTokenRequest("PublicToken_example") // ExchangeFinancialConnectionsPublicTokenRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.ExchangeFinancialConnectionsPublicToken(context.Background()).ExchangeFinancialConnectionsPublicTokenRequest(exchangeFinancialConnectionsPublicTokenRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.ExchangeFinancialConnectionsPublicToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ExchangeFinancialConnectionsPublicToken`: ExchangeFinancialConnectionsPublicTokenResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.ExchangeFinancialConnectionsPublicToken`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.ExchangeFinancialConnectionsPublicToken(context.Background()).ExchangeFinancialConnectionsPublicTokenRequest(exchangeFinancialConnectionsPublicTokenRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.ExchangeFinancialConnectionsPublicToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ExchangeFinancialConnectionsPublicToken`: ExchangeFinancialConnectionsPublicTokenResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.ExchangeFinancialConnectionsPublicToken`: %v\n", resp)
 }
 ```
 
@@ -637,7 +640,7 @@ Name | Type | Description  | Notes
 
 ## GetAssetReport
 
-> RefreshAssetReportResponse GetAssetReport(ctx).GetAssetReportRequest(getAssetReportRequest).Execute()
+> AssetReportResponse GetAssetReport(ctx).GetAssetReportRequest(getAssetReportRequest).Execute()
 
 
 
@@ -649,24 +652,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    getAssetReportRequest := *openapiclient.NewGetAssetReportRequest("AccessToken_example", "AssetReportToken_example") // GetAssetReportRequest |  (optional)
+	getAssetReportRequest := *openapiclient.NewGetAssetReportRequest("AccessToken_example", "AssetReportToken_example") // GetAssetReportRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.GetAssetReport(context.Background()).GetAssetReportRequest(getAssetReportRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetAssetReport``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAssetReport`: RefreshAssetReportResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetAssetReport`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.GetAssetReport(context.Background()).GetAssetReportRequest(getAssetReportRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetAssetReport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAssetReport`: AssetReportResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetAssetReport`: %v\n", resp)
 }
 ```
 
@@ -685,7 +688,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RefreshAssetReportResponse**](RefreshAssetReportResponse.md)
+[**AssetReportResponse**](AssetReportResponse.md)
 
 ### Authorization
 
@@ -713,25 +716,25 @@ Get consumer risk report
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    consumerRiskReportId := "consumerRiskReportId_example" // string | 
-    recalculate := true // bool | An optional boolean parameter. If set to true, the system will recalculate before returning the risk report. If omitted or set to false, the current risk report will be returned without recalculation. (optional)
+	consumerRiskReportId := "consumerRiskReportId_example" // string | 
+	recalculate := true // bool | An optional boolean parameter. If set to true, the system will recalculate before returning the risk report. If omitted or set to false, the current risk report will be returned without recalculation. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.GetConsumerRiskReport(context.Background(), consumerRiskReportId).Recalculate(recalculate).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetConsumerRiskReport``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetConsumerRiskReport`: GetConsumerRiskReportResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetConsumerRiskReport`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.GetConsumerRiskReport(context.Background(), consumerRiskReportId).Recalculate(recalculate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetConsumerRiskReport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetConsumerRiskReport`: GetConsumerRiskReportResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetConsumerRiskReport`: %v\n", resp)
 }
 ```
 
@@ -785,24 +788,24 @@ Get entity
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    entityId := "entityId_example" // string | 
+	entityId := "entityId_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.GetEntity(context.Background(), entityId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetEntity``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetEntity`: GetEntityResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetEntity`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.GetEntity(context.Background(), entityId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetEntity``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetEntity`: GetEntityResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetEntity`: %v\n", resp)
 }
 ```
 
@@ -853,24 +856,24 @@ Get finance score
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    accountId := "accountId_example" // string | 
+	accountId := "accountId_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.GetFinanceScore(context.Background(), accountId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetFinanceScore``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFinanceScore`: GetFinanceScoreResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetFinanceScore`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.GetFinanceScore(context.Background(), accountId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetFinanceScore``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFinanceScore`: GetFinanceScoreResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetFinanceScore`: %v\n", resp)
 }
 ```
 
@@ -921,24 +924,24 @@ Get financial connection details
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    financialConnectionId := "financialConnectionId_example" // string | 
+	financialConnectionId := "financialConnectionId_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.GetFinancialConnection(context.Background(), financialConnectionId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetFinancialConnection``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFinancialConnection`: GetFinancialConnectionResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetFinancialConnection`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.GetFinancialConnection(context.Background(), financialConnectionId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetFinancialConnection``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFinancialConnection`: GetFinancialConnectionResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetFinancialConnection`: %v\n", resp)
 }
 ```
 
@@ -989,24 +992,24 @@ Get account details
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    getFinancialConnectionsAccountDetailsRequest := *openapiclient.NewGetFinancialConnectionsAccountDetailsRequest("AccessToken_example") // GetFinancialConnectionsAccountDetailsRequest | 
+	getFinancialConnectionsAccountDetailsRequest := *openapiclient.NewGetFinancialConnectionsAccountDetailsRequest("AccessToken_example") // GetFinancialConnectionsAccountDetailsRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.GetFinancialConnectionsAccountDetails(context.Background()).GetFinancialConnectionsAccountDetailsRequest(getFinancialConnectionsAccountDetailsRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetFinancialConnectionsAccountDetails``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFinancialConnectionsAccountDetails`: GetFinancialConnectionsAccountDetailsResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetFinancialConnectionsAccountDetails`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.GetFinancialConnectionsAccountDetails(context.Background()).GetFinancialConnectionsAccountDetailsRequest(getFinancialConnectionsAccountDetailsRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetFinancialConnectionsAccountDetails``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFinancialConnectionsAccountDetails`: GetFinancialConnectionsAccountDetailsResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetFinancialConnectionsAccountDetails`: %v\n", resp)
 }
 ```
 
@@ -1055,24 +1058,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    getFinancialConnectionsAccountStatementRequest := *openapiclient.NewGetFinancialConnectionsAccountStatementRequest("AccessToken_example", "RemoteAccountId_example") // GetFinancialConnectionsAccountStatementRequest |  (optional)
+	getFinancialConnectionsAccountStatementRequest := *openapiclient.NewGetFinancialConnectionsAccountStatementRequest("AccessToken_example", "RemoteAccountId_example") // GetFinancialConnectionsAccountStatementRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.GetFinancialConnectionsAccountStatement(context.Background()).GetFinancialConnectionsAccountStatementRequest(getFinancialConnectionsAccountStatementRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetFinancialConnectionsAccountStatement``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFinancialConnectionsAccountStatement`: GetFinancialConnectionsAccountStatementResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetFinancialConnectionsAccountStatement`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.GetFinancialConnectionsAccountStatement(context.Background()).GetFinancialConnectionsAccountStatementRequest(getFinancialConnectionsAccountStatementRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetFinancialConnectionsAccountStatement``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFinancialConnectionsAccountStatement`: GetFinancialConnectionsAccountStatementResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetFinancialConnectionsAccountStatement`: %v\n", resp)
 }
 ```
 
@@ -1119,24 +1122,24 @@ Get accounts
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    getFinancialConnectionsAccountsRequest := *openapiclient.NewGetFinancialConnectionsAccountsRequest("AccessToken_example") // GetFinancialConnectionsAccountsRequest | 
+	getFinancialConnectionsAccountsRequest := *openapiclient.NewGetFinancialConnectionsAccountsRequest("AccessToken_example") // GetFinancialConnectionsAccountsRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.GetFinancialConnectionsAccounts(context.Background()).GetFinancialConnectionsAccountsRequest(getFinancialConnectionsAccountsRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetFinancialConnectionsAccounts``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFinancialConnectionsAccounts`: GetFinancialConnectionsAccountsResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetFinancialConnectionsAccounts`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.GetFinancialConnectionsAccounts(context.Background()).GetFinancialConnectionsAccountsRequest(getFinancialConnectionsAccountsRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetFinancialConnectionsAccounts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFinancialConnectionsAccounts`: GetFinancialConnectionsAccountsResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetFinancialConnectionsAccounts`: %v\n", resp)
 }
 ```
 
@@ -1183,24 +1186,24 @@ Get balances
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    getFinancialConnectionsBalanceRequest := *openapiclient.NewGetFinancialConnectionsBalanceRequest("AccessToken_example") // GetFinancialConnectionsBalanceRequest | 
+	getFinancialConnectionsBalanceRequest := *openapiclient.NewGetFinancialConnectionsBalanceRequest("AccessToken_example") // GetFinancialConnectionsBalanceRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.GetFinancialConnectionsBalances(context.Background()).GetFinancialConnectionsBalanceRequest(getFinancialConnectionsBalanceRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetFinancialConnectionsBalances``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFinancialConnectionsBalances`: GetFinancialConnectionsBalanceResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetFinancialConnectionsBalances`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.GetFinancialConnectionsBalances(context.Background()).GetFinancialConnectionsBalanceRequest(getFinancialConnectionsBalanceRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetFinancialConnectionsBalances``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFinancialConnectionsBalances`: GetFinancialConnectionsBalanceResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetFinancialConnectionsBalances`: %v\n", resp)
 }
 ```
 
@@ -1247,24 +1250,24 @@ Get account owners
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    getFinancialConnectionsOwnersRequest := *openapiclient.NewGetFinancialConnectionsOwnersRequest("AccessToken_example") // GetFinancialConnectionsOwnersRequest | 
+	getFinancialConnectionsOwnersRequest := *openapiclient.NewGetFinancialConnectionsOwnersRequest("AccessToken_example") // GetFinancialConnectionsOwnersRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.GetFinancialConnectionsOwners(context.Background()).GetFinancialConnectionsOwnersRequest(getFinancialConnectionsOwnersRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetFinancialConnectionsOwners``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFinancialConnectionsOwners`: GetFinancialConnectionsOwnersResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetFinancialConnectionsOwners`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.GetFinancialConnectionsOwners(context.Background()).GetFinancialConnectionsOwnersRequest(getFinancialConnectionsOwnersRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetFinancialConnectionsOwners``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFinancialConnectionsOwners`: GetFinancialConnectionsOwnersResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetFinancialConnectionsOwners`: %v\n", resp)
 }
 ```
 
@@ -1311,24 +1314,24 @@ Get transactions
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    getFinancialConnectionsTransactionsRequest := *openapiclient.NewGetFinancialConnectionsTransactionsRequest("AccessToken_example", "StartDate_example", "EndDate_example", int32(123), int32(123)) // GetFinancialConnectionsTransactionsRequest | 
+	getFinancialConnectionsTransactionsRequest := *openapiclient.NewGetFinancialConnectionsTransactionsRequest("AccessToken_example", "StartDate_example", "EndDate_example", int32(123), int32(123)) // GetFinancialConnectionsTransactionsRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.GetFinancialConnectionsTransactions(context.Background()).GetFinancialConnectionsTransactionsRequest(getFinancialConnectionsTransactionsRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetFinancialConnectionsTransactions``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFinancialConnectionsTransactions`: GetFinancialConnectionsTransactionsResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetFinancialConnectionsTransactions`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.GetFinancialConnectionsTransactions(context.Background()).GetFinancialConnectionsTransactionsRequest(getFinancialConnectionsTransactionsRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetFinancialConnectionsTransactions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFinancialConnectionsTransactions`: GetFinancialConnectionsTransactionsResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetFinancialConnectionsTransactions`: %v\n", resp)
 }
 ```
 
@@ -1377,24 +1380,24 @@ Get a financial institution
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    institutionId := "institutionId_example" // string | 
+	institutionId := "institutionId_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.GetFinancialInstitution(context.Background(), institutionId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetFinancialInstitution``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFinancialInstitution`: GetFinancialInstitutionResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetFinancialInstitution`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.GetFinancialInstitution(context.Background(), institutionId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetFinancialInstitution``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFinancialInstitution`: GetFinancialInstitutionResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetFinancialInstitution`: %v\n", resp)
 }
 ```
 
@@ -1445,24 +1448,24 @@ Get investment holdings
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    getInvestmentHoldingsRequest := *openapiclient.NewGetInvestmentHoldingsRequest("AccessToken_example") // GetInvestmentHoldingsRequest | 
+	getInvestmentHoldingsRequest := *openapiclient.NewGetInvestmentHoldingsRequest("AccessToken_example") // GetInvestmentHoldingsRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.GetInvestmentHoldings(context.Background()).GetInvestmentHoldingsRequest(getInvestmentHoldingsRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetInvestmentHoldings``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetInvestmentHoldings`: GetInvestmentHoldingsResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetInvestmentHoldings`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.GetInvestmentHoldings(context.Background()).GetInvestmentHoldingsRequest(getInvestmentHoldingsRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetInvestmentHoldings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetInvestmentHoldings`: GetInvestmentHoldingsResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetInvestmentHoldings`: %v\n", resp)
 }
 ```
 
@@ -1509,24 +1512,24 @@ Get investment transactions
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    getInvestmentTransactionsRequest := *openapiclient.NewGetInvestmentTransactionsRequest("AccessToken_example", "StartDate_example", "EndDate_example", int32(123), int32(123)) // GetInvestmentTransactionsRequest | 
+	getInvestmentTransactionsRequest := *openapiclient.NewGetInvestmentTransactionsRequest("AccessToken_example", "StartDate_example", "EndDate_example", int32(123), int32(123)) // GetInvestmentTransactionsRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.GetInvestmentTransactions(context.Background()).GetInvestmentTransactionsRequest(getInvestmentTransactionsRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetInvestmentTransactions``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetInvestmentTransactions`: GetInvestmentTransactionsResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetInvestmentTransactions`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.GetInvestmentTransactions(context.Background()).GetInvestmentTransactionsRequest(getInvestmentTransactionsRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetInvestmentTransactions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetInvestmentTransactions`: GetInvestmentTransactionsResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetInvestmentTransactions`: %v\n", resp)
 }
 ```
 
@@ -1561,6 +1564,72 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetRecommendedFinancialInstitutions
+
+> GetRecommendedFinancialInstitutionsResponse GetRecommendedFinancialInstitutions(ctx).GetRecommendedFinancialInstitutionsRequest(getRecommendedFinancialInstitutionsRequest).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	getRecommendedFinancialInstitutionsRequest := *openapiclient.NewGetRecommendedFinancialInstitutionsRequest("SessionClientSecret_example") // GetRecommendedFinancialInstitutionsRequest |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.GetRecommendedFinancialInstitutions(context.Background()).GetRecommendedFinancialInstitutionsRequest(getRecommendedFinancialInstitutionsRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.GetRecommendedFinancialInstitutions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetRecommendedFinancialInstitutions`: GetRecommendedFinancialInstitutionsResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.GetRecommendedFinancialInstitutions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetRecommendedFinancialInstitutionsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **getRecommendedFinancialInstitutionsRequest** | [**GetRecommendedFinancialInstitutionsRequest**](GetRecommendedFinancialInstitutionsRequest.md) |  | 
+
+### Return type
+
+[**GetRecommendedFinancialInstitutionsResponse**](GetRecommendedFinancialInstitutionsResponse.md)
+
+### Authorization
+
+[fuseApiKey](../README.md#fuseApiKey), [fuseClientId](../README.md#fuseClientId)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## MigrateFinancialConnection
 
 > MigrateFinancialConnectionsTokenResponse MigrateFinancialConnection(ctx).MigrateFinancialConnectionsTokenRequest(migrateFinancialConnectionsTokenRequest).Execute()
@@ -1575,24 +1644,24 @@ Migrate financial connection
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    migrateFinancialConnectionsTokenRequest := *openapiclient.NewMigrateFinancialConnectionsTokenRequest(*openapiclient.NewMigrateFinancialConnectionsAggregatorConnectionData(), "Aggregator_example", *openapiclient.NewMigrateFinancialConnectionsTokenRequestEntity(), []openapiclient.Product{openapiclient.Product("account_details")}) // MigrateFinancialConnectionsTokenRequest |  (optional)
+	migrateFinancialConnectionsTokenRequest := *openapiclient.NewMigrateFinancialConnectionsTokenRequest(*openapiclient.NewMigrateFinancialConnectionsAggregatorConnectionData(), "Aggregator_example", *openapiclient.NewMigrateFinancialConnectionsTokenRequestEntity(), []openapiclient.Product{openapiclient.Product("account_details")}) // MigrateFinancialConnectionsTokenRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.MigrateFinancialConnection(context.Background()).MigrateFinancialConnectionsTokenRequest(migrateFinancialConnectionsTokenRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.MigrateFinancialConnection``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `MigrateFinancialConnection`: MigrateFinancialConnectionsTokenResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.MigrateFinancialConnection`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.MigrateFinancialConnection(context.Background()).MigrateFinancialConnectionsTokenRequest(migrateFinancialConnectionsTokenRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.MigrateFinancialConnection``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `MigrateFinancialConnection`: MigrateFinancialConnectionsTokenResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.MigrateFinancialConnection`: %v\n", resp)
 }
 ```
 
@@ -1629,7 +1698,7 @@ Name | Type | Description  | Notes
 
 ## RefreshAssetReport
 
-> AssetReportResponse RefreshAssetReport(ctx).RefreshAssetReportRequest(refreshAssetReportRequest).Execute()
+> RefreshAssetReportResponse RefreshAssetReport(ctx).RefreshAssetReportRequest(refreshAssetReportRequest).Execute()
 
 
 
@@ -1641,24 +1710,24 @@ Name | Type | Description  | Notes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    refreshAssetReportRequest := *openapiclient.NewRefreshAssetReportRequest("AccessToken_example", "AssetReportToken_example") // RefreshAssetReportRequest |  (optional)
+	refreshAssetReportRequest := *openapiclient.NewRefreshAssetReportRequest("AccessToken_example", "AssetReportToken_example") // RefreshAssetReportRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.RefreshAssetReport(context.Background()).RefreshAssetReportRequest(refreshAssetReportRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.RefreshAssetReport``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `RefreshAssetReport`: AssetReportResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.RefreshAssetReport`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.RefreshAssetReport(context.Background()).RefreshAssetReportRequest(refreshAssetReportRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.RefreshAssetReport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `RefreshAssetReport`: RefreshAssetReportResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.RefreshAssetReport`: %v\n", resp)
 }
 ```
 
@@ -1677,7 +1746,139 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AssetReportResponse**](AssetReportResponse.md)
+[**RefreshAssetReportResponse**](RefreshAssetReportResponse.md)
+
+### Authorization
+
+[fuseApiKey](../README.md#fuseApiKey), [fuseClientId](../README.md#fuseClientId)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SearchFinancialInstitutions
+
+> SearchFinancialInstitutionsResponse SearchFinancialInstitutions(ctx).SearchFinancialInstitutionsRequest(searchFinancialInstitutionsRequest).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	searchFinancialInstitutionsRequest := *openapiclient.NewSearchFinancialInstitutionsRequest("SessionClientSecret_example", "SearchTerm_example") // SearchFinancialInstitutionsRequest |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.SearchFinancialInstitutions(context.Background()).SearchFinancialInstitutionsRequest(searchFinancialInstitutionsRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.SearchFinancialInstitutions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SearchFinancialInstitutions`: SearchFinancialInstitutionsResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.SearchFinancialInstitutions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSearchFinancialInstitutionsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **searchFinancialInstitutionsRequest** | [**SearchFinancialInstitutionsRequest**](SearchFinancialInstitutionsRequest.md) |  | 
+
+### Return type
+
+[**SearchFinancialInstitutionsResponse**](SearchFinancialInstitutionsResponse.md)
+
+### Authorization
+
+[fuseApiKey](../README.md#fuseApiKey), [fuseClientId](../README.md#fuseClientId)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SelectFinancialInstitutions
+
+> SelectFinancialInstitutionsResponse SelectFinancialInstitutions(ctx).SelectFinancialInstitutionsRequest(selectFinancialInstitutionsRequest).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	selectFinancialInstitutionsRequest := *openapiclient.NewSelectFinancialInstitutionsRequest("SessionClientSecret_example", "FinancialInstitutionId_example") // SelectFinancialInstitutionsRequest |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.SelectFinancialInstitutions(context.Background()).SelectFinancialInstitutionsRequest(selectFinancialInstitutionsRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.SelectFinancialInstitutions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SelectFinancialInstitutions`: SelectFinancialInstitutionsResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.SelectFinancialInstitutions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSelectFinancialInstitutionsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **selectFinancialInstitutionsRequest** | [**SelectFinancialInstitutionsRequest**](SelectFinancialInstitutionsRequest.md) |  | 
+
+### Return type
+
+[**SelectFinancialInstitutionsResponse**](SelectFinancialInstitutionsResponse.md)
 
 ### Authorization
 
@@ -1707,25 +1908,25 @@ Sync financial connections data
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    fuseVerification := "fuseVerification_example" // string | 
-    body := map[string]interface{}{ ... } // map[string]interface{} | 
+	fuseVerification := "fuseVerification_example" // string | 
+	body := map[string]interface{}{ ... } // map[string]interface{} | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.SyncFinancialConnectionsData(context.Background()).FuseVerification(fuseVerification).Body(body).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.SyncFinancialConnectionsData``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SyncFinancialConnectionsData`: SyncFinancialConnectionsDataResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.SyncFinancialConnectionsData`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.SyncFinancialConnectionsData(context.Background()).FuseVerification(fuseVerification).Body(body).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.SyncFinancialConnectionsData``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SyncFinancialConnectionsData`: SyncFinancialConnectionsDataResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.SyncFinancialConnectionsData`: %v\n", resp)
 }
 ```
 
@@ -1773,25 +1974,25 @@ Update consumer risk report customization
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    consumerRiskReportCustomizationId := "consumerRiskReportCustomizationId_example" // string | 
-    updateConsumerRiskReportCustomizationRequest := *openapiclient.NewUpdateConsumerRiskReportCustomizationRequest() // UpdateConsumerRiskReportCustomizationRequest |  (optional)
+	consumerRiskReportCustomizationId := "consumerRiskReportCustomizationId_example" // string | 
+	updateConsumerRiskReportCustomizationRequest := *openapiclient.NewUpdateConsumerRiskReportCustomizationRequest() // UpdateConsumerRiskReportCustomizationRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.UpdateConsumerRiskReportCustomization(context.Background(), consumerRiskReportCustomizationId).UpdateConsumerRiskReportCustomizationRequest(updateConsumerRiskReportCustomizationRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.UpdateConsumerRiskReportCustomization``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateConsumerRiskReportCustomization`: UpdateConsumerRiskReportCustomizationResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.UpdateConsumerRiskReportCustomization`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.UpdateConsumerRiskReportCustomization(context.Background(), consumerRiskReportCustomizationId).UpdateConsumerRiskReportCustomizationRequest(updateConsumerRiskReportCustomizationRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.UpdateConsumerRiskReportCustomization``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateConsumerRiskReportCustomization`: UpdateConsumerRiskReportCustomizationResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.UpdateConsumerRiskReportCustomization`: %v\n", resp)
 }
 ```
 
@@ -1843,24 +2044,24 @@ Get liabilities
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    getLiabilitiesRequest := *openapiclient.NewGetLiabilitiesRequest("AccessToken_example") // GetLiabilitiesRequest | 
+	getLiabilitiesRequest := *openapiclient.NewGetLiabilitiesRequest("AccessToken_example") // GetLiabilitiesRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FuseAPI.V1FinancialConnectionsLiabilitiesPost(context.Background()).GetLiabilitiesRequest(getLiabilitiesRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.V1FinancialConnectionsLiabilitiesPost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `V1FinancialConnectionsLiabilitiesPost`: GetLiabilitiesResponse
-    fmt.Fprintf(os.Stdout, "Response from `FuseAPI.V1FinancialConnectionsLiabilitiesPost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FuseAPI.V1FinancialConnectionsLiabilitiesPost(context.Background()).GetLiabilitiesRequest(getLiabilitiesRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FuseAPI.V1FinancialConnectionsLiabilitiesPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `V1FinancialConnectionsLiabilitiesPost`: GetLiabilitiesResponse
+	fmt.Fprintf(os.Stdout, "Response from `FuseAPI.V1FinancialConnectionsLiabilitiesPost`: %v\n", resp)
 }
 ```
 

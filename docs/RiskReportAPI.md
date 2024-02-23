@@ -21,26 +21,26 @@ Delete consumer risk report
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    consumerRiskReportId := "consumerRiskReportId_example" // string | 
-    fuseClientId := "fuseClientId_example" // string | 
-    fuseApiKey := "fuseApiKey_example" // string | 
+	consumerRiskReportId := "consumerRiskReportId_example" // string | 
+	fuseClientId := "fuseClientId_example" // string | 
+	fuseApiKey := "fuseApiKey_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RiskReportAPI.DeleteConsumerRiskReport(context.Background(), consumerRiskReportId).FuseClientId(fuseClientId).FuseApiKey(fuseApiKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RiskReportAPI.DeleteConsumerRiskReport``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DeleteConsumerRiskReport`: DeleteConsumerRiskReportResponse
-    fmt.Fprintf(os.Stdout, "Response from `RiskReportAPI.DeleteConsumerRiskReport`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RiskReportAPI.DeleteConsumerRiskReport(context.Background(), consumerRiskReportId).FuseClientId(fuseClientId).FuseApiKey(fuseApiKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RiskReportAPI.DeleteConsumerRiskReport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteConsumerRiskReport`: DeleteConsumerRiskReportResponse
+	fmt.Fprintf(os.Stdout, "Response from `RiskReportAPI.DeleteConsumerRiskReport`: %v\n", resp)
 }
 ```
 
@@ -93,26 +93,26 @@ Get consumer risk report customization
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-    consumerRiskReportCustomizationId := "consumerRiskReportCustomizationId_example" // string | 
-    fuseClientId := "fuseClientId_example" // string | 
-    fuseApiKey := "fuseApiKey_example" // string | 
+	consumerRiskReportCustomizationId := "consumerRiskReportCustomizationId_example" // string | 
+	fuseClientId := "fuseClientId_example" // string | 
+	fuseApiKey := "fuseApiKey_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RiskReportAPI.GetConsumerRiskReportCustomization(context.Background(), consumerRiskReportCustomizationId).FuseClientId(fuseClientId).FuseApiKey(fuseApiKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RiskReportAPI.GetConsumerRiskReportCustomization``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetConsumerRiskReportCustomization`: GetConsumerRiskReportCustomizationResponse
-    fmt.Fprintf(os.Stdout, "Response from `RiskReportAPI.GetConsumerRiskReportCustomization`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RiskReportAPI.GetConsumerRiskReportCustomization(context.Background(), consumerRiskReportCustomizationId).FuseClientId(fuseClientId).FuseApiKey(fuseApiKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RiskReportAPI.GetConsumerRiskReportCustomization``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetConsumerRiskReportCustomization`: GetConsumerRiskReportCustomizationResponse
+	fmt.Fprintf(os.Stdout, "Response from `RiskReportAPI.GetConsumerRiskReportCustomization`: %v\n", resp)
 }
 ```
 

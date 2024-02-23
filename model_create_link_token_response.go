@@ -12,6 +12,8 @@ package fuse
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the CreateLinkTokenResponse type satisfies the MappedNullable interface at compile time
@@ -24,6 +26,8 @@ type CreateLinkTokenResponse struct {
 	// An identifier that is exclusive to the request and can serve as a means for investigating and resolving issues.
 	RequestId string `json:"request_id"`
 }
+
+type _CreateLinkTokenResponse CreateLinkTokenResponse
 
 // NewCreateLinkTokenResponse instantiates a new CreateLinkTokenResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -105,6 +109,44 @@ func (o CreateLinkTokenResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["link_token"] = o.LinkToken
 	toSerialize["request_id"] = o.RequestId
 	return toSerialize, nil
+}
+
+func (o *CreateLinkTokenResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"link_token",
+		"request_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreateLinkTokenResponse := _CreateLinkTokenResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCreateLinkTokenResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateLinkTokenResponse(varCreateLinkTokenResponse)
+
+	return err
 }
 
 type NullableCreateLinkTokenResponse struct {

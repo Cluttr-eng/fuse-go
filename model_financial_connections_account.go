@@ -12,6 +12,8 @@ package fuse
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FinancialConnectionsAccount type satisfies the MappedNullable interface at compile time
@@ -27,14 +29,18 @@ type FinancialConnectionsAccount struct {
 	Fingerprint string `json:"fingerprint"`
 	Institution *FinancialConnectionsAccountInstitution `json:"institution,omitempty"`
 	// The partial account number.
-	Mask *string `json:"mask,omitempty"`
+	Mask NullableString `json:"mask,omitempty"`
 	// The account's name, ie 'My Checking'
 	Name string `json:"name"`
 	Type AccountType `json:"type"`
 	Subtype NullableAccountSubtype `json:"subtype,omitempty"`
 	Balance FinancialConnectionsAccountCachedBalance `json:"balance"`
+	// An array of additional balances. This may be used for investment type accounts where the user can have multiple balances across different currencies.
+	AdditionalBalances []FinancialConnectionsAccountCachedBalance `json:"additional_balances,omitempty"`
 	RemoteData interface{} `json:"remote_data"`
 }
+
+type _FinancialConnectionsAccount FinancialConnectionsAccount
 
 // NewFinancialConnectionsAccount instantiates a new FinancialConnectionsAccount object
 // This constructor will assign default values to properties that have it defined,
@@ -164,36 +170,46 @@ func (o *FinancialConnectionsAccount) SetInstitution(v FinancialConnectionsAccou
 	o.Institution = &v
 }
 
-// GetMask returns the Mask field value if set, zero value otherwise.
+// GetMask returns the Mask field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *FinancialConnectionsAccount) GetMask() string {
-	if o == nil || IsNil(o.Mask) {
+	if o == nil || IsNil(o.Mask.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.Mask
+	return *o.Mask.Get()
 }
 
 // GetMaskOk returns a tuple with the Mask field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *FinancialConnectionsAccount) GetMaskOk() (*string, bool) {
-	if o == nil || IsNil(o.Mask) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Mask, true
+	return o.Mask.Get(), o.Mask.IsSet()
 }
 
 // HasMask returns a boolean if a field has been set.
 func (o *FinancialConnectionsAccount) HasMask() bool {
-	if o != nil && !IsNil(o.Mask) {
+	if o != nil && o.Mask.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetMask gets a reference to the given string and assigns it to the Mask field.
+// SetMask gets a reference to the given NullableString and assigns it to the Mask field.
 func (o *FinancialConnectionsAccount) SetMask(v string) {
-	o.Mask = &v
+	o.Mask.Set(&v)
+}
+// SetMaskNil sets the value for Mask to be an explicit nil
+func (o *FinancialConnectionsAccount) SetMaskNil() {
+	o.Mask.Set(nil)
+}
+
+// UnsetMask ensures that no value is present for Mask, not even an explicit nil
+func (o *FinancialConnectionsAccount) UnsetMask() {
+	o.Mask.Unset()
 }
 
 // GetName returns the Name field value
@@ -310,6 +326,38 @@ func (o *FinancialConnectionsAccount) SetBalance(v FinancialConnectionsAccountCa
 	o.Balance = v
 }
 
+// GetAdditionalBalances returns the AdditionalBalances field value if set, zero value otherwise.
+func (o *FinancialConnectionsAccount) GetAdditionalBalances() []FinancialConnectionsAccountCachedBalance {
+	if o == nil || IsNil(o.AdditionalBalances) {
+		var ret []FinancialConnectionsAccountCachedBalance
+		return ret
+	}
+	return o.AdditionalBalances
+}
+
+// GetAdditionalBalancesOk returns a tuple with the AdditionalBalances field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FinancialConnectionsAccount) GetAdditionalBalancesOk() ([]FinancialConnectionsAccountCachedBalance, bool) {
+	if o == nil || IsNil(o.AdditionalBalances) {
+		return nil, false
+	}
+	return o.AdditionalBalances, true
+}
+
+// HasAdditionalBalances returns a boolean if a field has been set.
+func (o *FinancialConnectionsAccount) HasAdditionalBalances() bool {
+	if o != nil && !IsNil(o.AdditionalBalances) {
+		return true
+	}
+
+	return false
+}
+
+// SetAdditionalBalances gets a reference to the given []FinancialConnectionsAccountCachedBalance and assigns it to the AdditionalBalances field.
+func (o *FinancialConnectionsAccount) SetAdditionalBalances(v []FinancialConnectionsAccountCachedBalance) {
+	o.AdditionalBalances = v
+}
+
 // GetRemoteData returns the RemoteData field value
 // If the value is explicit nil, the zero value for interface{} will be returned
 func (o *FinancialConnectionsAccount) GetRemoteData() interface{} {
@@ -352,8 +400,8 @@ func (o FinancialConnectionsAccount) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Institution) {
 		toSerialize["institution"] = o.Institution
 	}
-	if !IsNil(o.Mask) {
-		toSerialize["mask"] = o.Mask
+	if o.Mask.IsSet() {
+		toSerialize["mask"] = o.Mask.Get()
 	}
 	toSerialize["name"] = o.Name
 	toSerialize["type"] = o.Type
@@ -361,10 +409,56 @@ func (o FinancialConnectionsAccount) ToMap() (map[string]interface{}, error) {
 		toSerialize["subtype"] = o.Subtype.Get()
 	}
 	toSerialize["balance"] = o.Balance
+	if !IsNil(o.AdditionalBalances) {
+		toSerialize["additional_balances"] = o.AdditionalBalances
+	}
 	if o.RemoteData != nil {
 		toSerialize["remote_data"] = o.RemoteData
 	}
 	return toSerialize, nil
+}
+
+func (o *FinancialConnectionsAccount) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"remote_id",
+		"currency",
+		"fingerprint",
+		"name",
+		"type",
+		"balance",
+		"remote_data",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFinancialConnectionsAccount := _FinancialConnectionsAccount{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFinancialConnectionsAccount)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FinancialConnectionsAccount(varFinancialConnectionsAccount)
+
+	return err
 }
 
 type NullableFinancialConnectionsAccount struct {

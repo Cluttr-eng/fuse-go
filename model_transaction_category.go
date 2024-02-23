@@ -12,6 +12,8 @@ package fuse
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the TransactionCategory type satisfies the MappedNullable interface at compile time
@@ -22,6 +24,8 @@ type TransactionCategory struct {
 	Primary TransactionCategoryPrimary `json:"primary"`
 	Detailed TransactionCategoryDetailed `json:"detailed"`
 }
+
+type _TransactionCategory TransactionCategory
 
 // NewTransactionCategory instantiates a new TransactionCategory object
 // This constructor will assign default values to properties that have it defined,
@@ -103,6 +107,44 @@ func (o TransactionCategory) ToMap() (map[string]interface{}, error) {
 	toSerialize["primary"] = o.Primary
 	toSerialize["detailed"] = o.Detailed
 	return toSerialize, nil
+}
+
+func (o *TransactionCategory) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"primary",
+		"detailed",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTransactionCategory := _TransactionCategory{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varTransactionCategory)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TransactionCategory(varTransactionCategory)
+
+	return err
 }
 
 type NullableTransactionCategory struct {

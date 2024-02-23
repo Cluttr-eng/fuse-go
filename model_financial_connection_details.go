@@ -12,6 +12,8 @@ package fuse
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FinancialConnectionDetails type satisfies the MappedNullable interface at compile time
@@ -41,7 +43,10 @@ type FinancialConnectionDetails struct {
 	Finicity *FinancialConnectionDetailsFinicity `json:"finicity,omitempty"`
 	Akoya *FinancialConnectionDetailsAkoya `json:"akoya,omitempty"`
 	Saltedge *FinancialConnectionDetailsSaltedge `json:"saltedge,omitempty"`
+	Sophtron *FinancialConnectionDetailsSophtron `json:"sophtron,omitempty"`
 }
+
+type _FinancialConnectionDetails FinancialConnectionDetails
 
 // NewFinancialConnectionDetails instantiates a new FinancialConnectionDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -601,6 +606,38 @@ func (o *FinancialConnectionDetails) SetSaltedge(v FinancialConnectionDetailsSal
 	o.Saltedge = &v
 }
 
+// GetSophtron returns the Sophtron field value if set, zero value otherwise.
+func (o *FinancialConnectionDetails) GetSophtron() FinancialConnectionDetailsSophtron {
+	if o == nil || IsNil(o.Sophtron) {
+		var ret FinancialConnectionDetailsSophtron
+		return ret
+	}
+	return *o.Sophtron
+}
+
+// GetSophtronOk returns a tuple with the Sophtron field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FinancialConnectionDetails) GetSophtronOk() (*FinancialConnectionDetailsSophtron, bool) {
+	if o == nil || IsNil(o.Sophtron) {
+		return nil, false
+	}
+	return o.Sophtron, true
+}
+
+// HasSophtron returns a boolean if a field has been set.
+func (o *FinancialConnectionDetails) HasSophtron() bool {
+	if o != nil && !IsNil(o.Sophtron) {
+		return true
+	}
+
+	return false
+}
+
+// SetSophtron gets a reference to the given FinancialConnectionDetailsSophtron and assigns it to the Sophtron field.
+func (o *FinancialConnectionDetails) SetSophtron(v FinancialConnectionDetailsSophtron) {
+	o.Sophtron = &v
+}
+
 func (o FinancialConnectionDetails) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -655,7 +692,51 @@ func (o FinancialConnectionDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Saltedge) {
 		toSerialize["saltedge"] = o.Saltedge
 	}
+	if !IsNil(o.Sophtron) {
+		toSerialize["sophtron"] = o.Sophtron
+	}
 	return toSerialize, nil
+}
+
+func (o *FinancialConnectionDetails) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"connection_status",
+		"connection_status_updated_at",
+		"is_oauth",
+		"aggregator",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFinancialConnectionDetails := _FinancialConnectionDetails{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFinancialConnectionDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FinancialConnectionDetails(varFinancialConnectionDetails)
+
+	return err
 }
 
 type NullableFinancialConnectionDetails struct {

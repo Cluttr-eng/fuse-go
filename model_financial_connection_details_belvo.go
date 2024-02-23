@@ -12,6 +12,8 @@ package fuse
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FinancialConnectionDetailsBelvo type satisfies the MappedNullable interface at compile time
@@ -24,6 +26,8 @@ type FinancialConnectionDetailsBelvo struct {
 	// The identifier of the institution for Belvo.
 	Institution *string `json:"institution,omitempty"`
 }
+
+type _FinancialConnectionDetailsBelvo FinancialConnectionDetailsBelvo
 
 // NewFinancialConnectionDetailsBelvo instantiates a new FinancialConnectionDetailsBelvo object
 // This constructor will assign default values to properties that have it defined,
@@ -114,6 +118,43 @@ func (o FinancialConnectionDetailsBelvo) ToMap() (map[string]interface{}, error)
 		toSerialize["institution"] = o.Institution
 	}
 	return toSerialize, nil
+}
+
+func (o *FinancialConnectionDetailsBelvo) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"link_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFinancialConnectionDetailsBelvo := _FinancialConnectionDetailsBelvo{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFinancialConnectionDetailsBelvo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FinancialConnectionDetailsBelvo(varFinancialConnectionDetailsBelvo)
+
+	return err
 }
 
 type NullableFinancialConnectionDetailsBelvo struct {
